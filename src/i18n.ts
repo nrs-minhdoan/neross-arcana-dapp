@@ -9,7 +9,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next) // bind react-i18next to the instance
   .init({
-    fallbackLng: ELanguages.ENGLISH,
+    fallbackLng: ELanguages.English,
     debug: true,
     interpolation: {
       escapeValue: false, // not needed for react!!

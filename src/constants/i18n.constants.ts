@@ -1,4 +1,6 @@
+export const LANGUAGE_KEY = "lang";
+
 export enum ELanguages {
-  ENGLISH = "en",
-  VIETNAMESE = "vi",
+  English = "en",
+  Vietnamese = "vi",
 }

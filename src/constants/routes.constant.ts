@@ -8,6 +8,7 @@ export const AUTH_ROUTES = {
 };
 
 export const MAIN_ROUTES = {
+  MAIN: APP_ROUTES.MAIN,
   MY_FILES: "/my-files",
   SHARED_WITH_ME: "/shared-with-me",
 };

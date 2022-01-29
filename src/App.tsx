@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { store, persistor } from "./store";
+import routes from "./routes/app.routes";
+import ErrorBoundary from "./containers/error-boundary/ErrorBoundary";
+import I18nProvider from "./contexts/i18n.context";
+
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Suspense fallback={<div />}>
+            <I18nProvider>
+              <BrowserRouter>
+                <Routes>
+                  {routes.map(({ key, path, element, children }) => (
+                    <Route key={key} path={path} element={element}>
+                      {children.map(({ ...others }) => (
+                        <Route {...others} />
+                      ))}
+                    </Route>
+                  ))}
+                </Routes>
+              </BrowserRouter>
+            </I18nProvider>
+          </Suspense>
+        </PersistGate>
+      </Provider>
+    </ErrorBoundary>
   );
 }
 

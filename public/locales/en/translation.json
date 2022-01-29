@@ -1,0 +1,15 @@
+{
+  "appName": "NeroSs DApp",
+  "loginWithGoogle": "Login with Google",
+  "hello": "Hello",
+  "myFiles": "My Files",
+  "sharedWithMe": "Shared With Me",
+  "storageStatus": "Storage Status",
+  "bandwidthStatus": "Bandwidth Status",
+  "unlimited": "Unlimited",
+  "fileID": "File ID",
+  "lastModified": "Last Modified",
+  "size": "Size",
+  "actions": "Actions",
+  "uploadFile": "Upload File"
+}

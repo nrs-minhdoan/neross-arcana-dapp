@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 183.5 412.83">
+    <defs>
+        <style>
+            .cls-1{fill:#7f7f7f;}.cls-1,.cls-2,.cls-3{stroke:#000;stroke-miterlimit:10;}.cls-1,.cls-3{stroke-width:3px;}.cls-3{fill:#57ae57;}
+        </style>
+    </defs>
+    <title>Asset 4</title>
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+            <circle class="cls-1" cx="91.74" cy="56.46" r="54.96"/>
+            <circle class="cls-2" cx="69.16" cy="44.88" r="15.43"/>
+            <circle class="cls-2" cx="114.51" cy="44.88" r="15.43"/>
+            <rect class="cls-1" x="32.49" y="111.43" width="118.49" height="159.36"/>
+            <rect class="cls-1" x="1.5" y="122.23" width="30.99" height="125.94"/>
+            <rect class="cls-1" x="151" y="122.23" width="30.99" height="125.94"/>
+            <rect class="cls-1" x="37.63" y="271.94" width="41.92" height="114.19"/>
+            <rect class="cls-1" x="103.79" y="271.94" width="41.92" height="114.19"/>
+            <rect class="cls-3" x="31.59" y="387.27" width="54" height="24.05"/>
+            <rect class="cls-3" x="97.74" y="387.27" width="54" height="24.05"/>
+        </g>
+    </g>
+</svg>

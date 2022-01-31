@@ -1,6 +1,10 @@
 {
-  "appName": "NeroSs DApp",
+  "appName": "NeroSs",
+  "dApp": "dApp",
   "loginWithGoogle": "Login with Google",
+  "loggingIn": "Logging in...",
+  "loginSuccessfully": "Login successfully",
+  "loginFailed": "Login failed",
   "hello": "Hello",
   "myFiles": "My Files",
   "sharedWithMe": "Shared With Me",
@@ -11,5 +15,14 @@
   "lastModified": "Last Modified",
   "size": "Size",
   "actions": "Actions",
-  "uploadFile": "Upload File"
+  "uploadFile": "Upload File",
+  "settings": "Settings",
+  "theme": "Theme",
+  "dark": "Dark",
+  "light": "Light",
+  "system": "System",
+  "language": "Language",
+  "english": "English",
+  "vietnamese": "Tiếng Việt",
+  "agreePrivacyAndTerms": "By clicking on login, you agree to Arcana Network's <a href='https://arcana.network/terms/'>Terms</a> & <a href='https://arcana.network/privacy/'>Privacy Policy</a>"
 }

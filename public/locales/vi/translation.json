@@ -1,6 +1,10 @@
 {
-  "appName": "NeroSs DApp",
+  "appName": "NeroSs",
+  "dApp": "dApp",
   "loginWithGoogle": "Đăng nhập với Google",
+  "loggingIn": "Đang đăng nhập...",
+  "loginSuccessfully": "Đăng nhập thành công",
+  "loginFailed": "Đăng nhập thất bại",
   "hello": "Xin chào",
   "myFiles": "Tệp của tôi",
   "sharedWithMe": "Chia sẻ với tôi",
@@ -11,5 +15,14 @@
   "lastModified": "Ngày cập nhật",
   "size": "Kích thước",
   "actions": "Hành động",
-  "uploadFile": "Tải file"
+  "uploadFile": "Tải file",
+  "settings": "Cài đặt",
+  "theme": "Giao diện",
+  "dark": "Tối",
+  "light": "Sáng",
+  "system": "Hệ thống",
+  "language": "Ngôn ngữ",
+  "english": "English",
+  "vietnamese": "Tiếng Việt",
+  "agreePrivacyAndTerms": "Bằng cách bấm đăng nhập, bạn đồng ý với <a href='https://arcana.network/terms/'>các điều khoản</a> và <a href='https://arcana.network/privacy/'>chính sách về quyền riêng tư</a> của Arcana Network"
 }

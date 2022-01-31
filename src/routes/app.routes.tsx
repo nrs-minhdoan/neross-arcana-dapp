@@ -23,6 +23,8 @@ const routes = [
   {
     key: "auth-layout",
     path: APP_ROUTES.AUTH,
+    pattern: "/auth",
+    exact: true,
     element: <AuthLayout />,
     children: [
       {
@@ -36,6 +38,8 @@ const routes = [
   {
     key: "main-layout",
     path: APP_ROUTES.MAIN,
+    pattern: "/:path",
+    exact: false,
     element: <MainLayout />,
     children: [
       {

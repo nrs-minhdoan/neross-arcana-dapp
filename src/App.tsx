@@ -5,9 +5,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import routes from "./routes/app.routes";
 import { store, persistor } from "./store";
-import ErrorBoundary from "./containers/error-boundary/ErrorBoundary";
 import ThemeProvider from "./contexts/theme.context";
 import I18nProvider from "./contexts/i18n.context";
+import ErrorBoundary from "./containers/error-boundary/ErrorBoundary";
+import SnackbarWrapper from "./components/common/snackbar-provider/SnackbarProvider";
 
 import "./App.css";
 
@@ -19,17 +20,19 @@ function App() {
           <Suspense fallback={<div />}>
             <ThemeProvider>
               <I18nProvider>
-                <BrowserRouter>
-                  <Routes>
-                    {routes.map(({ key, path, element, children }) => (
-                      <Route key={key} path={path} element={element}>
-                        {children.map(({ ...others }) => (
-                          <Route {...others} />
-                        ))}
-                      </Route>
-                    ))}
-                  </Routes>
-                </BrowserRouter>
+                <SnackbarWrapper>
+                  <BrowserRouter>
+                    <Routes>
+                      {routes.map(({ key, path, element, children }) => (
+                        <Route key={key} path={path} element={element}>
+                          {children.map(({ ...others }) => (
+                            <Route {...others} />
+                          ))}
+                        </Route>
+                      ))}
+                    </Routes>
+                  </BrowserRouter>
+                </SnackbarWrapper>
               </I18nProvider>
             </ThemeProvider>
           </Suspense>

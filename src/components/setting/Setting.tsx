@@ -47,7 +47,6 @@ function Setting() {
           sx: {
             width: "22.5rem",
             maxWidth: "calc(100% - 3.5rem)",
-            backgroundColor: "background.default",
             backgroundImage: "none",
           },
         }}

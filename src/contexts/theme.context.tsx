@@ -8,10 +8,10 @@ import React, {
 } from "react";
 import { PaletteMode } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
 import { default as MuiThemeProvider } from "@mui/material/styles/ThemeProvider";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme } from "@mui/material/styles";
-import { SnackbarProvider } from "notistack";
 
 import { getDesignTokens } from "../assets/themes/theme";
 
@@ -68,15 +68,7 @@ function ThemeProvider({ children }: PropsWithChildren<IProps>) {
     <ThemeContext.Provider value={values}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <SnackbarProvider
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          autoHideDuration={1500}
-        >
-          {children}
-        </SnackbarProvider>
+        {children}
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );

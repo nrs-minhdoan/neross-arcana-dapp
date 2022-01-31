@@ -23,7 +23,7 @@ export default function withAuth(
       : MAIN_ROUTES.MAIN;
   }
   const WithAuth: FC = ({ ...props }: any) => {
-    const isAuth = useSelector((state) => !!state.auth.token);
+    const isAuth = useSelector((store) => !!store.auth.token);
 
     if (options.needAuth !== isAuth) {
       return (

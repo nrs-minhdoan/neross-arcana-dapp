@@ -1,26 +1,17 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 
-import Button from "@mui/material/Button";
-import GoogleIcon from "@mui/icons-material/Google";
+import Box from "@mui/material/Box";
 
 import withAuth from "../../hocs/withAuth";
-import { Logo } from "../../assets/images";
+import useI18nContext from "../../hooks/useI18nContext";
 
-import "./shared-with-me.css";
+import useStyles from "./sharedWithMe.style";
 
 function SharedWithMe() {
-  const { t } = useTranslation();
+  const classes = useStyles();
+  const { t } = useI18nContext();
 
-  return (
-    <div className={"shared-with-me-container"}>
-      <img src={Logo} alt="" />
-      {t("appName")}
-      <Button type="button" variant="contained">
-        <GoogleIcon /> {t("loginWithGoogle")}
-      </Button>
-    </div>
-  );
+  return <Box className={classes.container}></Box>;
 }
 
 export default withAuth(SharedWithMe);

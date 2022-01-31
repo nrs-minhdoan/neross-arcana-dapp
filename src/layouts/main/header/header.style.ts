@@ -2,16 +2,18 @@ import makeStyles from "@mui/styles/makeStyles";
 
 const useStyles = makeStyles({
   container: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    width: "100vw",
-    minHeight: "100vh",
+    width: "100%",
   },
   content: {
-    flex: 1,
     display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
     width: "100%",
+    padding: "0.5rem",
+  },
+  appBrand: {
+    display: "flex",
+    alignItems: "center",
   },
 });
 

@@ -8,6 +8,8 @@
   "hello": "Hello",
   "myFiles": "My Files",
   "sharedWithMe": "Shared With Me",
+  "logout": "Logout",
+  "logoutSuccessfully": "Logout successfully",
   "storageStatus": "Storage Status",
   "bandwidthStatus": "Bandwidth Status",
   "unlimited": "Unlimited",

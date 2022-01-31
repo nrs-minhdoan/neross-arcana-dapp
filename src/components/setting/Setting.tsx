@@ -33,7 +33,7 @@ function Setting() {
           width: "2.25rem",
           height: "2.25rem",
           padding: 0,
-          borderRadius: "0.75rem",
+          borderRadius: "0.5rem",
         }}
         variant="outlined"
         color="primary"

@@ -3,7 +3,8 @@ import { Outlet } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 
-import Header from "../auth/header/Header";
+import Header from "./header/Header";
+import SideBar from "./side-bar/SideBar";
 
 import useStyles from "./main.layout.style";
 
@@ -13,7 +14,10 @@ function MainLayout() {
   return (
     <Box className={classes.container}>
       <Header />
-      <Outlet />
+      <Box className={classes.content}>
+        <SideBar />
+        <Outlet />
+      </Box>
     </Box>
   );
 }

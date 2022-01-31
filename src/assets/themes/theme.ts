@@ -13,12 +13,12 @@ const getDesignTokens: (mode: PaletteMode) => ThemeOptions = (mode) => ({
             main: "#ffffff",
             contrastText: "#063975",
           },
-          // success: {
-          //   main: "#4cbd94",
-          // },
-          // error: {
-          //   main: "#f25461",
-          // },
+          success: {
+            main: "#4cbd94",
+          },
+          error: {
+            main: "#f25461",
+          },
           divider: "#4ba3fb",
           text: {
             primary: "#ffffff",
@@ -26,6 +26,7 @@ const getDesignTokens: (mode: PaletteMode) => ThemeOptions = (mode) => ({
           },
           background: {
             default: "#063975",
+            paper: "#063975",
           },
         }
       : {
@@ -36,12 +37,12 @@ const getDesignTokens: (mode: PaletteMode) => ThemeOptions = (mode) => ({
           secondary: {
             main: "#ffffff",
           },
-          // success: {
-          //   main: "#4cbd94",
-          // },
-          // error: {
-          //   main: "#f25461",
-          // },
+          success: {
+            main: "#4cbd94",
+          },
+          error: {
+            main: "#f25461",
+          },
           divider: "#4ba3fb",
           text: {
             primary: "#ffffff",
@@ -49,6 +50,7 @@ const getDesignTokens: (mode: PaletteMode) => ThemeOptions = (mode) => ({
           },
           background: {
             default: "#063975",
+            paper: "#063975",
           },
         }),
   },

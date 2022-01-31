@@ -44,6 +44,7 @@ function GoogleAuth() {
           );
           enqueueSnackbar(t("loginSuccessfully"), {
             variant: "success",
+            color: "",
           });
         }, 1500);
       } else {

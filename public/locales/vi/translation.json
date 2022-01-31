@@ -8,6 +8,8 @@
   "hello": "Xin chào",
   "myFiles": "Tệp của tôi",
   "sharedWithMe": "Chia sẻ với tôi",
+  "logout": "Đăng xuất",
+  "logoutSuccessfully": "Đăng xuất thành công",
   "storageStatus": "Trạng thái kho lưu trữ",
   "bandwidthStatus": "Trạng thái băng thông",
   "unlimited": "Không giới hạn",

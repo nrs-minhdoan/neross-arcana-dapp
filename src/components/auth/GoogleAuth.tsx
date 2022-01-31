@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import {
   GoogleLoginResponse,
@@ -14,6 +13,7 @@ import CONFIG from "../../config";
 import { plainToClass } from "../../utils/classTransformer";
 import { UserInfo } from "../../models/store/auth.model";
 import { Google } from "../../assets/images";
+import useI18nContext from "../../hooks/useI18nContext";
 import {
   initSession,
   loadSession,
@@ -21,8 +21,8 @@ import {
 } from "../../store/auth/auth.action";
 
 function GoogleAuth() {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { t } = useI18nContext();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleLoginGoogle = useCallback(() => {
@@ -38,7 +38,7 @@ function GoogleAuth() {
               token: (response as GoogleLoginResponse).tokenId,
               userInfo: plainToClass(
                 UserInfo,
-                (response as GoogleLoginResponse).tokenObj
+                (response as GoogleLoginResponse).profileObj
               ),
             })
           );

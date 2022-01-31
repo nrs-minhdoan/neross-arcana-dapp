@@ -1,13 +1,20 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import "./main.layout.css";
+import Box from "@mui/material/Box";
+
+import Header from "../auth/header/Header";
+
+import useStyles from "./main.layout.style";
 
 function MainLayout() {
+  const classes = useStyles();
+
   return (
-    <div className={"main-layout-container"}>
+    <Box className={classes.container}>
+      <Header />
       <Outlet />
-    </div>
+    </Box>
   );
 }
 

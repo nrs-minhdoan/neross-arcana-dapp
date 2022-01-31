@@ -9,11 +9,11 @@ import React, {
 import { useTranslation, TFunction } from "react-i18next";
 import Cookie from "js-cookie";
 
-import { LANGUAGE_KEY, ELanguages } from "../constants/i18n.constants";
+import { LANGUAGE_KEY, ELanguages } from "../constants/i18n.constant";
 
 interface II18nContextValues {
   t: TFunction;
-  currentLanguage: ELanguages;
+  language: ELanguages;
   changeLanguage: (language?: ELanguages) => void;
 }
 
@@ -49,7 +49,7 @@ function I18nProvider({ children }: PropsWithChildren<IProps>) {
   const values = useMemo<II18nContextValues>(
     () => ({
       t,
-      currentLanguage,
+      language: currentLanguage,
       changeLanguage: handleChangeLanguage,
     }),
     [t, currentLanguage, handleChangeLanguage]

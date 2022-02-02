@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
 
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -17,9 +15,7 @@ interface IProps {
 }
 
 function Share({ id, onClose }: IProps) {
-  const dispatch = useDispatch();
   const { t } = useI18nContext();
-  const { enqueueSnackbar } = useSnackbar();
 
   return (
     <Dialog fullWidth maxWidth="xs" open={!!id} onClose={onClose}>

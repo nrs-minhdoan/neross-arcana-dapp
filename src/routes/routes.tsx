@@ -52,6 +52,12 @@ const routes = [
       },
     ],
   },
+  {
+    key: "index",
+    index: true,
+    path: "*",
+    element: <Navigate to={APP_ROUTES.MY_FILES} replace={true} />,
+  },
 ];
 
 export default routes;

@@ -24,6 +24,10 @@ const auth = new AuthProvider({
   ],
 });
 
+export function redirectPage() {
+  AuthProvider.handleRedirectPage(CONFIG.APP_URL);
+}
+
 export function loginWithGoogle() {
   return auth.loginWithSocial(LoginType.google);
 }

@@ -6,7 +6,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "16rem",
+    minWidth: "16rem",
     borderRight: `solid 1px ${theme.palette.primary.main}`,
+    overflow: "hidden",
+    [theme.breakpoints.down("md")]: {
+      width: "3.5rem",
+      minWidth: "3.5rem",
+    },
   },
   content: {
     width: "100%",

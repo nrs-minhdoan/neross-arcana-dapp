@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 import Box from "@mui/material/Box";
@@ -13,7 +13,9 @@ function AuthLayout() {
   return (
     <Box className={classes.container}>
       <Header />
-      <Outlet />
+      <Suspense fallback={<div />}>
+        <Outlet />
+      </Suspense>
     </Box>
   );
 }

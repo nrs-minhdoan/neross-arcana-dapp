@@ -6,7 +6,11 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     width: "100vw",
+    minWidth: "100vw",
+    maxWidth: "100vw",
     minHeight: "100vh",
+    maxHeight: "100vh",
+    overflow: "hidden",
   },
   content: {
     flex: 1,

@@ -1,6 +1,4 @@
 import React, { useMemo } from "react";
-import { useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
 
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
@@ -24,9 +22,7 @@ interface IProps {
 }
 
 function SharedUserAddresses({ id, onClose }: IProps) {
-  const dispatch = useDispatch();
   const { t } = useI18nContext();
-  const { enqueueSnackbar } = useSnackbar();
 
   const columns = useMemo<
     Array<{

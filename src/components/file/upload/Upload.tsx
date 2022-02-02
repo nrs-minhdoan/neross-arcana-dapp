@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -11,11 +9,9 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import useI18nContext from "../../../hooks/useI18nContext";
 
 function Upload() {
-  const dispatch = useDispatch();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const { t } = useI18nContext();
-  const { enqueueSnackbar } = useSnackbar();
 
   return (
     <label htmlFor="contained-button-file">

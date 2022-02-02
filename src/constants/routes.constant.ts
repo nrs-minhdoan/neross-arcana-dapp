@@ -1,6 +1,6 @@
 export const ROUTES = {
   AUTH: "/auth",
-  APP: "/app",
+  APP: "",
 };
 
 export const AUTH_ROUTES = {

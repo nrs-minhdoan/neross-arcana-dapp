@@ -35,7 +35,7 @@ function Auth() {
       >
         <CircularProgress size={48} color="secondary" />
         <Typography variant="body1" sx={{ marginTop: "1rem" }}>
-          {t("loggingIn")}
+          {t("unlocking")}
         </Typography>
       </Box>
       <Box

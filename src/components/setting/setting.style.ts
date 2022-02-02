@@ -1,8 +1,7 @@
 import makeStyles from "@mui/styles/makeStyles";
 
 const useStyles = makeStyles({
-  drawerContainer: {},
-  drawerHeading: {
+  heading: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",

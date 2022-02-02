@@ -5,28 +5,27 @@ const getDesignTokens: (mode: PaletteMode) => ThemeOptions = (mode) => ({
     mode,
     ...(mode === "light"
       ? {
-          // palette values for dark mode
+          // palette values for light mode
           primary: {
-            main: "#4ba3fb",
+            main: "#0777ed",
           },
           secondary: {
-            main: "#ffffff",
-            contrastText: "#063975",
+            main: "#0777ed",
           },
           success: {
-            main: "#4cbd94",
+            main: "#008554",
           },
           error: {
-            main: "#f25461",
+            main: "#c12532",
           },
-          divider: "#4ba3fb",
+          divider: "#0777ed",
           text: {
-            primary: "#ffffff",
-            secondary: "#c2c4c7",
+            primary: "rgba(0, 0, 0, 0.54)",
+            secondary: "rgba(0, 0, 0, 0.54)",
           },
           background: {
-            default: "#063975",
-            paper: "#063975",
+            default: "#ffffff",
+            paper: "#ffffff",
           },
         }
       : {

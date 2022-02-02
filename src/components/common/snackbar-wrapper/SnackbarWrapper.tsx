@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 
 import { SnackbarProvider } from "notistack";
 
-import useStyles from "./snackbarProvider.style";
+import useStyles from "./snackbarWrapper.style";
 
 interface IProps {}
 
@@ -15,10 +15,7 @@ function SnackbarWrapper({ children }: PropsWithChildren<IProps>) {
         variantSuccess: classes.variantSuccess,
         variantError: classes.variantError,
       }}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "center",
-      }}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
       autoHideDuration={1500}
     >
       {children}

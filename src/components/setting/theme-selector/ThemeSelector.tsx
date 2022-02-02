@@ -21,7 +21,7 @@ import useStyles from "./themeSelector.style";
 function ThemeSelector() {
   const classes = useStyles();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
   const { t } = useI18nContext();
   const { mode, changeMode } = useThemeContext();
 
@@ -69,7 +69,7 @@ function ThemeSelector() {
       <ButtonGroup
         variant="outlined"
         sx={{ width: "100%" }}
-        orientation={matches ? "horizontal" : "vertical"}
+        orientation={matches ? "vertical" : "horizontal"}
       >
         {themeOptions.map(({ label, value, Icon }) => (
           <Button

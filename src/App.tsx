@@ -8,7 +8,7 @@ import { store, persistor } from "./store";
 import ThemeProvider from "./contexts/theme.context";
 import I18nProvider from "./contexts/i18n.context";
 import ErrorBoundary from "./containers/error-boundary/ErrorBoundary";
-import SnackbarWrapper from "./components/common/snackbar-provider/SnackbarProvider";
+import SnackbarWrapper from "./components/common/snackbar-wrapper/SnackbarWrapper";
 
 import "./App.css";
 

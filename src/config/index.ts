@@ -1,6 +1,21 @@
-const CONFIG = {
-  GOOGLE_CLIENT_ID:
-    "713121082738-h3a1u846jedk4bcuj1q7pian590celt9.apps.googleusercontent.com",
-};
+import devConfig from "./dev.config";
+import localConfig from "./local.config";
+
+const appStage = process.env.REACT_APP_STAGE
+  ? process.env.REACT_APP_STAGE.trim()
+  : "dev";
+
+interface IConfig {
+  APP_URL: string;
+  APP_ID: string;
+  GOOGLE_CLIENT_ID: string;
+}
+
+// eslint-disable-next-line import/no-mutable-exports
+let CONFIG: IConfig = devConfig;
+
+if (appStage === "local") {
+  CONFIG = localConfig;
+}
 
 export default CONFIG;

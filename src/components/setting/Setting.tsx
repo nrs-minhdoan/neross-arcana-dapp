@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -20,9 +20,9 @@ function Setting() {
   const { t } = useI18nContext();
   const [open, setOpen] = useState<boolean>();
 
-  const toggleDrawer = () => {
+  const toggleDrawer = useCallback(() => {
     setOpen(!open);
-  };
+  }, [open]);
 
   return (
     <>
@@ -33,7 +33,7 @@ function Setting() {
           width: "2.25rem",
           height: "2.25rem",
           padding: 0,
-          borderRadius: "0.5rem",
+          borderRadius: "0.25rem",
         }}
         variant="outlined"
         color="primary"
@@ -53,8 +53,8 @@ function Setting() {
         open={open}
         onClose={toggleDrawer}
       >
-        <Box className={classes.drawerContainer}>
-          <Box className={classes.drawerHeading}>
+        <Box>
+          <Box className={classes.heading}>
             <Typography
               variant="body1"
               sx={{ fontWeight: "bold" }}

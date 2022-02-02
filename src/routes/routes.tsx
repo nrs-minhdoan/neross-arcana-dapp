@@ -50,12 +50,6 @@ const routes = [
         path: APP_ROUTES.SHARED_WITH_ME,
         element: <SharedWithMe />,
       },
-      {
-        key: "main",
-        index: true,
-        path: "*",
-        element: <Navigate to={APP_ROUTES.MY_FILES} replace={true} />,
-      },
     ],
   },
 ];

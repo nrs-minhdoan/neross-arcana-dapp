@@ -57,6 +57,7 @@ const routes = [
     index: true,
     path: "*",
     element: <Navigate to={APP_ROUTES.MY_FILES} replace={true} />,
+    children: [],
   },
 ];
 

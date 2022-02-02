@@ -1,13 +1,17 @@
-import React, { useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 
 import Button from "@mui/material/Button";
 
 import { Google } from "../../assets/images";
 import useI18nContext from "../../hooks/useI18nContext";
-import { loginWithGoogle } from "../../sdks/arcanaAuth";
+import { redirectPage, loginWithGoogle } from "../../sdks/arcanaAuth";
 
 function GoogleAuth() {
   const { t } = useI18nContext();
+
+  useEffect(() => {
+    redirectPage();
+  }, []);
 
   const login = useCallback(() => {
     loginWithGoogle()

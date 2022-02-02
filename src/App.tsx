@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import routes from "./routes/app.routes";
+import routes from "./routes/routes";
 import { store, persistor } from "./store";
 import ThemeProvider from "./contexts/theme.context";
 import I18nProvider from "./contexts/i18n.context";

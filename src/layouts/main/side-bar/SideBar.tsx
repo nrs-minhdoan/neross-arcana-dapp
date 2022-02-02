@@ -15,7 +15,7 @@ import SnippetFolderIcon from "@mui/icons-material/SnippetFolder";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
 import LockIcon from "@mui/icons-material/Lock";
 
-import { MAIN_ROUTES } from "../../../constants/routes.constant";
+import { APP_ROUTES } from "../../../constants/routes.constant";
 import useI18nContext from "../../../hooks/useI18nContext";
 import { destroySession } from "../../../store/auth/auth.action";
 
@@ -110,9 +110,9 @@ function SideBar() {
       </Hidden>
       <List component="nav">
         <ListItemButton
-          selected={!!matchPath(MAIN_ROUTES.MY_FILES, location.pathname)}
+          selected={!!matchPath(APP_ROUTES.MY_FILES, location.pathname)}
           onClick={() => {
-            navigate(MAIN_ROUTES.MY_FILES);
+            navigate(APP_ROUTES.MY_FILES);
           }}
         >
           <ListItemIcon>
@@ -128,9 +128,9 @@ function SideBar() {
           />
         </ListItemButton>
         <ListItemButton
-          selected={!!matchPath(MAIN_ROUTES.SHARED_WITH_ME, location.pathname)}
+          selected={!!matchPath(APP_ROUTES.SHARED_WITH_ME, location.pathname)}
           onClick={() => {
-            navigate(MAIN_ROUTES.SHARED_WITH_ME);
+            navigate(APP_ROUTES.SHARED_WITH_ME);
           }}
         >
           <ListItemIcon>

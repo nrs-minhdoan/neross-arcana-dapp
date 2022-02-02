@@ -2,7 +2,7 @@ import React, { ComponentClass, FC } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 
-import { AUTH_ROUTES, MAIN_ROUTES } from "../constants/routes.constant";
+import { AUTH_ROUTES, APP_ROUTES } from "../constants/routes.constant";
 
 interface WithAuthOption {
   needAuth?: boolean;
@@ -20,7 +20,7 @@ export default function withAuth(
   if (!options.unMatchingRedirect) {
     options.unMatchingRedirect = options.needAuth
       ? AUTH_ROUTES.AUTH
-      : MAIN_ROUTES.MAIN;
+      : APP_ROUTES.APP;
   }
   const WithAuth: FC = ({ ...props }: any) => {
     const isAuth = useSelector((store) => !!store.auth.token);

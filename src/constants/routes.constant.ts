@@ -1,14 +1,14 @@
-export const APP_ROUTES = {
+export const ROUTES = {
   AUTH: "/auth",
-  MAIN: "/",
+  APP: "/app",
 };
 
 export const AUTH_ROUTES = {
-  AUTH: APP_ROUTES.AUTH,
+  AUTH: ROUTES.AUTH,
 };
 
-export const MAIN_ROUTES = {
-  MAIN: APP_ROUTES.MAIN,
-  MY_FILES: "/my-files",
-  SHARED_WITH_ME: "/shared-with-me",
+export const APP_ROUTES = {
+  APP: ROUTES.APP,
+  MY_FILES: `${ROUTES.APP}/my-files`,
+  SHARED_WITH_ME: `${ROUTES.APP}/shared-with-me`,
 };

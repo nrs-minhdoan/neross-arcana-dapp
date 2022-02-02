@@ -19,7 +19,7 @@ const auth = new AuthProvider({
     {
       type: LoginType.google,
       clientId: CONFIG.GOOGLE_CLIENT_ID,
-      redirectUri: CONFIG.APP_URL + AUTH_ROUTES.AUTH,
+      redirectUri: `${CONFIG.APP_URL}${AUTH_ROUTES.AUTH_REDIRECT}`,
     },
   ],
 });

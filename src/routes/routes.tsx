@@ -9,6 +9,10 @@ const MainLayout = lazy(() => import("../layouts/main/Main.layout"));
 
 const Auth = lazy(() => import("../containers/auth/Auth"));
 
+const AuthRedirect = lazy(
+  () => import("../containers/auth-redirect/AuthRedirect")
+);
+
 const MyFiles = lazy(() => import("../containers/my-files/MyFiles"));
 
 const SharedWithMe = lazy(
@@ -23,9 +27,13 @@ const routes = [
     children: [
       {
         key: "auth",
-        index: true,
         path: AUTH_ROUTES.AUTH,
         element: <Auth />,
+      },
+      {
+        key: "auth-redirect",
+        path: AUTH_ROUTES.AUTH_REDIRECT,
+        element: <AuthRedirect />,
       },
     ],
   },
@@ -36,7 +44,6 @@ const routes = [
     children: [
       {
         key: "main",
-        index: true,
         path: APP_ROUTES.APP,
         element: <Navigate to={APP_ROUTES.MY_FILES} replace={true} />,
       },
@@ -54,7 +61,6 @@ const routes = [
   },
   {
     key: "index",
-    index: true,
     path: "*",
     element: <Navigate to={APP_ROUTES.MY_FILES} replace={true} />,
     children: [],

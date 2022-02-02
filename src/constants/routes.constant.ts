@@ -5,6 +5,7 @@ export const ROUTES = {
 
 export const AUTH_ROUTES = {
   AUTH: ROUTES.AUTH,
+  AUTH_REDIRECT: `${ROUTES.AUTH}/redirect`,
 };
 
 export const APP_ROUTES = {

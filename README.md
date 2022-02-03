@@ -1,6 +1,6 @@
 # Project Live Demo:
 
-This project was built by Netlify: [NeroSs Arcana DApp](https://neross-dapp.netlify.app/)
+This project was built by Netlify: [NeroSs Arcana DApp](https://neross.netlify.app/)
 
 # Getting Started with Create React App
 

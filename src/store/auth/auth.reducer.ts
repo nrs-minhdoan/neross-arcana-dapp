@@ -28,16 +28,28 @@ const authReducer = createReducer<IAuthStoreState>(initialState)
     };
   })
   .handleAction(destroySession, (state) => {
-    return { ...state, token: undefined, userInfo: undefined };
+    return {
+      ...state,
+      loginType: undefined,
+      userInfo: undefined,
+      privateKey: undefined,
+    };
   })
   .handleAction(initSessionWithGoogle.request, (state) => {
-    return { ...state, token: undefined, userInfo: undefined, loading: true };
+    return {
+      ...state,
+      loginType: undefined,
+      userInfo: undefined,
+      privateKey: undefined,
+      loading: true,
+    };
   })
   .handleAction(initSessionWithGoogle.success, (state, { payload }) => {
     return {
       ...state,
       loginType: LoginType.google,
       userInfo: payload.userInfo,
+      privateKey: payload.privateKey,
       loading: false,
     };
   })

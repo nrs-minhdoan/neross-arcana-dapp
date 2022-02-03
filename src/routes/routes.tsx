@@ -5,7 +5,7 @@ import { ROUTES, AUTH_ROUTES, APP_ROUTES } from "../constants/routes.constant";
 
 const AuthLayout = lazy(() => import("../layouts/auth/Auth.layout"));
 
-const MainLayout = lazy(() => import("../layouts/main/Main.layout"));
+const AppLayout = lazy(() => import("../layouts/app/App.layout"));
 
 const Auth = lazy(() => import("../containers/auth/Auth"));
 
@@ -40,7 +40,7 @@ const routes = [
   {
     key: "app-layout",
     path: ROUTES.APP,
-    element: <MainLayout />,
+    element: <AppLayout />,
     children: [
       {
         key: "main",
@@ -58,12 +58,6 @@ const routes = [
         element: <SharedWithMe />,
       },
     ],
-  },
-  {
-    key: "index",
-    path: "*",
-    element: <Navigate to={APP_ROUTES.MY_FILES} replace={true} />,
-    children: [],
   },
 ];
 

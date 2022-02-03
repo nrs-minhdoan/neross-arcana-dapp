@@ -2,52 +2,52 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 import { createReducer } from "typesafe-actions";
 
+import { LoginType } from "../../sdks/arcanaNetwork";
 import { IAuthStoreState } from "../../models/store/auth.model";
 import {
-  loadSession,
-  unloadSession,
   initSession,
+  initSessionWithGoogle,
   destroySession,
 } from "./auth.action";
 
 const initialState: IAuthStoreState = {
-  token: undefined,
+  loginType: undefined,
   userInfo: undefined,
+  privateKey: undefined,
   loading: false,
+  error: undefined,
 };
 
 const authReducer = createReducer<IAuthStoreState>(initialState)
-  .handleAction(loadSession, (state) => {
-    return {
-      ...state,
-      loading: true,
-    };
-  })
-  .handleAction(unloadSession, (state) => {
-    return {
-      ...state,
-      loading: false,
-    };
-  })
   .handleAction(initSession, (state, { payload }) => {
     return {
       ...state,
-      token: payload.token,
+      loginType: payload.loginType,
+      userInfo: payload.userInfo,
+      privateKey: payload.privateKey,
+    };
+  })
+  .handleAction(destroySession, (state) => {
+    return { ...state, token: undefined, userInfo: undefined };
+  })
+  .handleAction(initSessionWithGoogle.request, (state) => {
+    return { ...state, token: undefined, userInfo: undefined, loading: true };
+  })
+  .handleAction(initSessionWithGoogle.success, (state, { payload }) => {
+    return {
+      ...state,
+      loginType: LoginType.google,
       userInfo: payload.userInfo,
       loading: false,
     };
   })
-  .handleAction(destroySession, (state) => {
-    return {
-      ...state,
-      token: undefined,
-      userInfo: undefined,
-    };
+  .handleAction(initSessionWithGoogle.failure, (state, { payload }) => {
+    return { ...state, error: payload, loading: false };
   });
 
 const persistConfig = {
   key: "auth",
-  whitelist: ["token", "userInfo"],
+  whitelist: ["loginType", "userInfo", "privateKey"],
   storage,
 };
 

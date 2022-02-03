@@ -6,7 +6,6 @@ export default function* rootSaga() {
   try {
     yield all([fork(authSaga)]);
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.log(e);
   }
 }

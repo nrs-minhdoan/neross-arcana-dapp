@@ -56,7 +56,7 @@ function User() {
           alt=""
         />
         <Hidden implementation="css" mdDown={true}>
-          {userInfo?.email}
+          {userInfo?.email || userInfo?.id}
         </Hidden>
       </Button>
       <Drawer

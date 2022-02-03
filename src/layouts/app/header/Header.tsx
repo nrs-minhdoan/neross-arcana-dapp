@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
@@ -14,6 +16,8 @@ import useStyles from "./header.style";
 
 function Header() {
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
   const { t } = useI18nContext();
 
   return (
@@ -31,7 +35,7 @@ function Header() {
             sx={{
               width: "2.5rem",
               height: "2.5rem",
-              marginRight: "0.5rem",
+              marginRight: matches ? 0 : "0.5rem",
             }}
             alt=""
           />

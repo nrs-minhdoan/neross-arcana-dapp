@@ -1,6 +1,6 @@
 export const ROUTES = {
   AUTH: "/auth",
-  APP: "",
+  APP: "/",
 };
 
 export const AUTH_ROUTES = {
@@ -10,6 +10,6 @@ export const AUTH_ROUTES = {
 
 export const APP_ROUTES = {
   APP: ROUTES.APP,
-  MY_FILES: `${ROUTES.APP}/my-files`,
-  SHARED_WITH_ME: `${ROUTES.APP}/shared-with-me`,
+  MY_FILES: `${ROUTES.APP}my-files`,
+  SHARED_WITH_ME: `${ROUTES.APP}shared-with-me`,
 };

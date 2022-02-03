@@ -6,7 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import withAuth from "../../hocs/withAuth";
 import useI18nContext from "../../hooks/useI18nContext";
-import { redirectPage } from "../../sdks/arcanaAuth";
+import arcanaNetworkSDK from "../../sdks/arcanaNetwork";
 
 import useStyles from "./authRedirect.style";
 
@@ -15,7 +15,7 @@ function AuthRedirect() {
   const { t } = useI18nContext();
 
   useEffect(() => {
-    redirectPage();
+    arcanaNetworkSDK.redirectPage();
   }, []);
 
   return (

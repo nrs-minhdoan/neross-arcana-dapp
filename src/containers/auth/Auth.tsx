@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import cx from "classnames";
+import { useSnackbar } from "notistack";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -15,8 +16,21 @@ import useStyles from "./auth.style";
 
 function Auth() {
   const classes = useStyles();
-  const { loading } = useSelector((store) => store.auth);
+  const { privateKey, loading, error } = useSelector((store) => store.auth);
+  const { enqueueSnackbar } = useSnackbar();
   const { t } = useI18nContext();
+
+  useEffect(() => {
+    if (!!privateKey) {
+      enqueueSnackbar(t("unlockSuccessfully"), { variant: "success" });
+    }
+  }, [privateKey, enqueueSnackbar, t]);
+
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    }
+  }, [error, enqueueSnackbar]);
 
   return (
     <Box className={classes.container}>

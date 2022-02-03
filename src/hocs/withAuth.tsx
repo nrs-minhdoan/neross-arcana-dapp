@@ -2,7 +2,6 @@ import React, { ComponentClass, FC } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 
-import arcanaNetworkSDK from "../sdks/arcanaNetwork";
 import { AUTH_ROUTES, APP_ROUTES } from "../constants/routes.constant";
 
 interface WithAuthOption {
@@ -24,9 +23,7 @@ export default function withAuth(
       : APP_ROUTES.APP;
   }
   const WithAuth: FC = ({ ...props }: any) => {
-    const isAuth = useSelector(
-      (store) => !!store.auth.privateKey && !!arcanaNetworkSDK.isLoggedIn
-    );
+    const isAuth = useSelector((store) => !!store.auth.privateKey);
 
     if (options.needAuth !== isAuth) {
       return (

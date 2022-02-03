@@ -21,7 +21,7 @@ function Information() {
   const information = useMemo(() => {
     return [
       { key: "name", value: userInfo?.name || "" },
-      { key: "email", value: userInfo?.email || "" },
+      { key: "email", value: userInfo?.email || userInfo?.id || "" },
       { key: "wallet", value: "empty_wallet_address" },
     ];
   }, [userInfo]);

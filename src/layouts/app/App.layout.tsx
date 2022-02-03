@@ -9,9 +9,9 @@ import SideBar from "./side-bar/SideBar";
 import Upload from "../../components/file/upload/Upload";
 import useI18nContext from "../../hooks/useI18nContext";
 
-import useStyles from "./main.layout.style";
+import useStyles from "./app.layout.style";
 
-function MainLayout() {
+function AppLayout() {
   const classes = useStyles();
   const location = useLocation();
   const { t } = useI18nContext();
@@ -57,4 +57,4 @@ function MainLayout() {
   );
 }
 
-export default MainLayout;
+export default AppLayout;

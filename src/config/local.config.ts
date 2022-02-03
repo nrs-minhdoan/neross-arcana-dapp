@@ -1,8 +1,8 @@
 const CONFIG = {
   APP_URL: "http://localhost:3000",
-  APP_ID: "447",
+  APP_ID: "477",
   GOOGLE_CLIENT_ID:
-    "713121082738-h3a1u846jedk4bcuj1q7pian590celt9.apps.googleusercontent.com",
+    "713121082738-21dm0a299g05aghigfjutfn1a69uunpo.apps.googleusercontent.com",
 };
 
 export default CONFIG;

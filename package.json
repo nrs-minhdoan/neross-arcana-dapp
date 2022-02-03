@@ -5,6 +5,7 @@
   "dependencies": {
     "@arcana/auth": "^0.0.6",
     "@arcana/keystore": "^0.0.6",
+    "@arcana/storage": "^0.1.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@fontsource/roboto": "^4.5.2",

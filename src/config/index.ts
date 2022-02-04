@@ -11,7 +11,6 @@ interface IConfig {
   GOOGLE_CLIENT_ID: string;
 }
 
-// eslint-disable-next-line import/no-mutable-exports
 let CONFIG: IConfig = devConfig;
 
 if (appStage === "local") {

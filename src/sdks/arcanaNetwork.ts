@@ -1,6 +1,9 @@
 import { KeyReconstructor } from "@arcana/keystore";
 import { AuthProvider } from "@arcana/auth";
 import { StorageProvider } from "@arcana/storage/dist/standalone/storage.umd";
+import Buffer from "buffer";
+import { ec as EC } from "elliptic";
+import { keccak256 } from "web3-utils";
 
 import CONFIG from "../config";
 import { AUTH_ROUTES } from "../constants/routes.constant";
@@ -13,6 +16,10 @@ export enum LoginType {
   github = "github",
   twitter = "twitter",
 }
+
+global.Buffer = global.Buffer || Buffer.Buffer;
+
+const ec = new EC("secp256k1");
 
 export class ArcanaNetworkSDK {
   keystore: KeyReconstructor;
@@ -81,6 +88,10 @@ export class ArcanaNetworkSDK {
     });
   };
 
+  getPublicKey = (payload: { X: string; Y: string }) => {
+    return "04" + payload.X.padStart(64, "0") + payload.Y.padStart(64, "0");
+  };
+
   getPrivateKey = (payload: {
     verifier: LoginType;
     username: string;
@@ -93,6 +104,13 @@ export class ArcanaNetworkSDK {
     });
   };
 
+  getWalletAddressFromPrivateKey(privateKey: string) {
+    const key = ec.keyFromPrivate(privateKey, "hex");
+    const publicKey = key.getPublic().encode("hex", true).slice(2);
+    const walletAddress = `0x${keccak256(publicKey).slice(64 - 38)}`;
+    return walletAddress;
+  }
+
   async getUploadLimit() {
     const access = await (this.storage as StorageProvider).getAccess();
     return access.getUploadLimit();
@@ -100,19 +118,21 @@ export class ArcanaNetworkSDK {
 
   async uploadFile(
     file: File,
-    onProgress?: (bytesUploaded: number, bytesTotal: number) => void,
-    onSuccess?: () => void,
-    onError?: () => void
+    callbacks?: {
+      onProgress?: (bytesUploaded: number, bytesTotal: number) => void;
+      onSuccess?: () => void;
+      onError?: () => void;
+    }
   ) {
     const uploader = await (this.storage as StorageProvider).getUploader();
-    if (onProgress) {
-      uploader.onProgress = onProgress;
+    if (callbacks?.onProgress) {
+      uploader.onProgress = callbacks.onProgress;
     }
-    if (onSuccess) {
-      uploader.onSuccess = onSuccess;
+    if (callbacks?.onSuccess) {
+      uploader.onSuccess = callbacks.onSuccess;
     }
-    if (onError) {
-      uploader.onError = onError;
+    if (callbacks?.onError) {
+      uploader.onError = callbacks.onError;
     }
     return uploader.upload(file);
   }
@@ -124,15 +144,20 @@ export class ArcanaNetworkSDK {
 
   async downloadFile(
     file: File,
-    onProgress?: (bytesDownloaded: number, bytesTotal: number) => Promise<void>,
-    onSuccess?: () => Promise<void>
+    callbacks: {
+      onProgress?: (
+        bytesDownloaded: number,
+        bytesTotal: number
+      ) => Promise<void>;
+      onSuccess?: () => Promise<void>;
+    }
   ) {
     const downloader = await (this.storage as StorageProvider).getDownloader();
-    if (onProgress) {
-      downloader.onProgress = onProgress;
+    if (callbacks?.onProgress) {
+      downloader.onProgress = callbacks.onProgress;
     }
-    if (onSuccess) {
-      downloader.onSuccess = onSuccess;
+    if (callbacks?.onSuccess) {
+      downloader.onSuccess = callbacks.onSuccess;
     }
     return downloader.download(file);
   }

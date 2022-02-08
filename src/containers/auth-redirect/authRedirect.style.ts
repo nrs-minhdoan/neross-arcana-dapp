@@ -1,7 +1,6 @@
-import { Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   container: {
     width: "24rem",
     maxWidth: "calc(100vw - 2rem)",
@@ -20,6 +19,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     height: "6rem",
   },
-}));
+});
 
 export default useStyles;

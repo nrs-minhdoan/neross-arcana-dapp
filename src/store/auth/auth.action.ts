@@ -6,6 +6,8 @@ import { UserInfo } from "../../models/store/auth.model";
 export const initSession = createAction("auth/INIT_SESSION")<{
   loginType: LoginType;
   userInfo: UserInfo;
+  walletAddress: string;
+  publicKey: string;
   privateKey: string;
 }>();
 
@@ -17,6 +19,8 @@ export const initSessionWithGoogle = createAsyncAction(
   void,
   {
     userInfo: UserInfo;
+    walletAddress: string;
+    publicKey: string;
     privateKey: string;
   },
   string

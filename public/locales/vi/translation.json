@@ -38,5 +38,6 @@
   "cancel": "Hủy bỏ",
   "confirm": "Xác nhận",
   "sharedUserAddresses": "Địa chỉ người dừng được chia sẻ",
-  "deleteDescription": "Bạn có muốn xóa tệp tin này?"
+  "deleteDescription": "Bạn có muốn xóa tệp tin này?",
+  "copiedToClipboard": "Đã sao chép"
 }

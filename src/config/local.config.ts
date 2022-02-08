@@ -1,4 +1,5 @@
 const CONFIG = {
+  APP_NAME: "NeroSs DApp",
   APP_URL: "http://localhost:3000",
   APP_ID: "478",
   GOOGLE_CLIENT_ID:

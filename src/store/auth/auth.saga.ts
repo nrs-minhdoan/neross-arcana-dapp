@@ -17,10 +17,6 @@ function* handleInitSessionWithGoogle() {
       verifier: LoginType.google,
       username: userInfoResponse.userInfo.id,
     });
-    const publicKeyResponse: string = yield call(
-      arcanaNetworkSDK.getPublicKey,
-      { X: publicKeyFromAuthResponse.X, Y: publicKeyFromAuthResponse.Y }
-    );
     const walletAddressResponse: string = yield call(
       arcanaNetworkSDK.getWalletAddressFromPrivateKey,
       userInfoResponse.privateKey
@@ -29,7 +25,7 @@ function* handleInitSessionWithGoogle() {
       initSessionWithGoogle.success({
         userInfo: plainToClass(UserInfo, userInfoResponse.userInfo),
         walletAddress: walletAddressResponse,
-        publicKey: publicKeyResponse,
+        publicKey: publicKeyFromAuthResponse,
         privateKey: userInfoResponse.privateKey,
       })
     );

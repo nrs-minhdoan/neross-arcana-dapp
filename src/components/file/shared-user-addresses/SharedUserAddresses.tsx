@@ -41,26 +41,7 @@ function SharedUserAddresses({ id, onClose }: IProps) {
   const rows = useMemo<Array<{ [key: string]: any }>>(() => {
     return [
       {
-        wallet: "empty_wallet",
-        actions: "empty_actions",
-      },
-      {
-        wallet: "empty_wallet",
-        actions: "empty_actions",
-      },
-      {
-        wallet: "empty_wallet",
-        actions: "empty_actions",
-      },
-      {
-        wallet: "empty_wallet",
-        actions: "empty_actions",
-      },
-      {
-        wallet: "empty_wallet",
-        actions: "empty_actions",
-      },
-      {
+        id: "empty_id",
         wallet: "empty_wallet",
         actions: "empty_actions",
       },
@@ -96,7 +77,10 @@ function SharedUserAddresses({ id, onClose }: IProps) {
                     {columns.map((column) => {
                       const value = row[column.field];
                       return (
-                        <TableCell key={column.field} align={column.align}>
+                        <TableCell
+                          key={`${row.id}-${column.field}`}
+                          align={column.align}
+                        >
                           {column.field === "actions" ? (
                             <Box
                               sx={{

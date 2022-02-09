@@ -47,7 +47,7 @@ function Information() {
   return (
     <>
       {information.map(({ key, value }) => (
-        <Box className={classes.container}>
+        <Box key={key} className={classes.container}>
           <Typography
             variant="overline"
             component="p"

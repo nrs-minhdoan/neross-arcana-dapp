@@ -18,7 +18,6 @@ const initialState: IAuthStoreState = {
   publicKey: undefined,
   privateKey: undefined,
   loading: false,
-  error: undefined,
 };
 
 const authReducer = createReducer<IAuthStoreState>(initialState)
@@ -64,8 +63,8 @@ const authReducer = createReducer<IAuthStoreState>(initialState)
       loading: false,
     };
   })
-  .handleAction(initSessionWithGoogle.failure, (state, { payload }) => {
-    return { ...state, error: payload, loading: false };
+  .handleAction(initSessionWithGoogle.failure, (state) => {
+    return { ...state, loading: false };
   });
 
 const persistConfig = {

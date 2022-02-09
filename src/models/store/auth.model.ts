@@ -19,5 +19,4 @@ export interface IAuthStoreState {
   publicKey?: string;
   privateKey?: string;
   loading: boolean;
-  error?: string;
 }

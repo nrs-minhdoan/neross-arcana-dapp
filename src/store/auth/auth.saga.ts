@@ -1,12 +1,13 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
-import upperFirst from "lodash/upperFirst";
 
 import arcanaNetworkSDK, { LoginType } from "../../sdks/arcanaNetwork";
 import { plainToClass } from "../../utils/classTransformer";
 import { UserInfo } from "../../models/store/auth.model";
 import { initSessionWithGoogle, destroySession } from "./auth.action";
 
-function* handleInitSessionWithGoogle() {
+function* handleInitSessionWithGoogle({
+  payload,
+}: ReturnType<typeof initSessionWithGoogle.request>) {
   try {
     yield call(arcanaNetworkSDK.loginWithGoogle);
     const userInfoResponse: ReturnType<typeof arcanaNetworkSDK.getUserInfo> =
@@ -29,12 +30,11 @@ function* handleInitSessionWithGoogle() {
         privateKey: userInfoResponse.privateKey,
       })
     );
-  } catch (e: any) {
-    if (typeof e === "string") {
-      yield put(initSessionWithGoogle.failure(upperFirst(e)));
-    } else {
-      console.log(e);
-    }
+    payload.onSuccess();
+  } catch (e) {
+    console.log(e);
+    payload.onError();
+    yield put(initSessionWithGoogle.failure());
   }
 }
 

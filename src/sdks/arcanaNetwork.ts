@@ -206,12 +206,6 @@ export class ArcanaNetworkSDK {
     return (this.storage as StorageProvider).myFiles();
   };
 
-  revokeFile = async (payload: { id: string; address: string }) => {
-    this.initializeStorage();
-    const access = await (this.storage as StorageProvider).getAccess();
-    return access.revoke(payload.id, payload.address);
-  };
-
   getSharedFilesWithMe = async () => {
     this.initializeStorage();
     return (this.storage as StorageProvider).sharedFiles();
@@ -225,6 +219,18 @@ export class ArcanaNetworkSDK {
     this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.share([payload.id], [payload.publicKey], [payload.validity]);
+  };
+
+  revokeFile = async (payload: { id: string; address: string }) => {
+    this.initializeStorage();
+    const access = await (this.storage as StorageProvider).getAccess();
+    return access.revoke(payload.id, payload.address);
+  };
+
+  deleteFile = async (id: string) => {
+    this.initializeStorage();
+    const access = await (this.storage as StorageProvider).getAccess();
+    return access.deleteFile(id);
   };
 
   logout = () => {

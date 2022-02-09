@@ -4,7 +4,12 @@ import arcanaNetworkSDK from "../../sdks/arcanaNetwork";
 import { APP_ROUTES } from "../../constants/routes.constant";
 import { plainToClass } from "../../utils/classTransformer";
 import { MyFile } from "../../models/store/file.model";
-import { getMyFiles, uploadFile, downloadFile } from "./file.action";
+import {
+  getMyFiles,
+  uploadFile,
+  downloadFile,
+  deleteFile,
+} from "./file.action";
 
 function* handleGetMyFiles() {
   try {
@@ -50,8 +55,24 @@ function* handleDownloadFile({
   }
 }
 
+function* handleDeleteFile({ payload }: ReturnType<typeof deleteFile.request>) {
+  try {
+    yield call(arcanaNetworkSDK.deleteFile, payload.id);
+    yield put(deleteFile.success());
+    if (window.location.pathname.includes(APP_ROUTES.MY_FILES)) {
+      yield call(handleGetMyFiles);
+    }
+    payload.callbacks.onSuccess();
+  } catch (e: any) {
+    console.log(e);
+    payload.callbacks.onError();
+    yield put(deleteFile.failure());
+  }
+}
+
 export default function* fileSaga() {
   yield takeLatest(getMyFiles.request, handleGetMyFiles);
   yield takeLatest(uploadFile.request, handleUploadFile);
   yield takeLatest(downloadFile.request, handleDownloadFile);
+  yield takeLatest(deleteFile.request, handleDeleteFile);
 }

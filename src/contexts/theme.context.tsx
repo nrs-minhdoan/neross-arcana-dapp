@@ -6,9 +6,9 @@ import React, {
   useCallback,
   PropsWithChildren,
 } from "react";
+
 import { PaletteMode } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
 import { default as MuiThemeProvider } from "@mui/material/styles/ThemeProvider";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme } from "@mui/material/styles";

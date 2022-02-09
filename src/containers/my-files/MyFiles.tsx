@@ -28,7 +28,7 @@ import Delete from "../../components/file/delete/Delete";
 import useI18nContext from "../../hooks/useI18nContext";
 
 import useStyles from "./myFiles.style";
-import { formatShortId } from "../../utils/common";
+import { formatShortId, formatKBSize } from "../../utils/common";
 import Download from "../../components/file/download/Download";
 
 function MyFiles() {
@@ -115,7 +115,7 @@ function MyFiles() {
               component="p"
               sx={{ textAlign: "right" }}
             >
-              {value}
+              {formatKBSize(value as number)} KB
             </Typography>
           );
 

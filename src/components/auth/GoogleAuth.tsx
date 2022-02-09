@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 
 import Button from "@mui/material/Button";
 
@@ -10,10 +11,24 @@ import useI18nContext from "../../hooks/useI18nContext";
 function GoogleAuth() {
   const dispatch = useDispatch();
   const { t } = useI18nContext();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const unlock = useCallback(() => {
-    dispatch(initSessionWithGoogle.request());
-  }, [dispatch]);
+  const handleSuccess = useCallback(() => {
+    enqueueSnackbar(t("connected"), { variant: "success" });
+  }, [enqueueSnackbar, t]);
+
+  const handleError = useCallback(() => {
+    enqueueSnackbar(t("connectFailed"), { variant: "error" });
+  }, [enqueueSnackbar, t]);
+
+  const connect = useCallback(() => {
+    dispatch(
+      initSessionWithGoogle.request({
+        onSuccess: handleSuccess,
+        onError: handleError,
+      })
+    );
+  }, [dispatch, handleSuccess, handleError]);
 
   return (
     <Button
@@ -21,10 +36,10 @@ function GoogleAuth() {
       variant="contained"
       color="secondary"
       sx={{ width: "100%" }}
-      onClick={unlock}
+      onClick={connect}
     >
       <img style={{ marginRight: "0.5rem" }} src={Google} alt="" />{" "}
-      {t("unlockWithGoogle")}
+      {t("connectWithGoogle")}
     </Button>
   );
 }

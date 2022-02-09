@@ -15,7 +15,8 @@ export class UserInfo {
 export interface IAuthStoreState {
   loginType?: LoginType;
   userInfo?: UserInfo;
+  walletAddress?: string;
+  publicKey?: string;
   privateKey?: string;
   loading: boolean;
-  error?: string;
 }

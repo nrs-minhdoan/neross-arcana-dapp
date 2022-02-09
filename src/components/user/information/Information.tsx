@@ -9,11 +9,14 @@ import DownloadIcon from "@mui/icons-material/Download";
 
 import useI18nContext from "../../../hooks/useI18nContext";
 import copyToClipboard from "../../../utils/copyToClipboard";
+import downloadJSON from "../../../utils/downloadJSON";
 
 import useStyles from "./information.style";
 
 function Information() {
-  const { userInfo } = useSelector((store) => store.auth);
+  const { userInfo, walletAddress, publicKey, privateKey } = useSelector(
+    (store) => store.auth
+  );
   const classes = useStyles();
   const { t } = useI18nContext();
   const { enqueueSnackbar } = useSnackbar();
@@ -22,9 +25,9 @@ function Information() {
     return [
       { key: "name", value: userInfo?.name || "" },
       { key: "email", value: userInfo?.email || userInfo?.id || "" },
-      { key: "wallet", value: "empty_wallet_address" },
+      { key: "wallet", value: walletAddress || "" },
     ];
-  }, [userInfo]);
+  }, [userInfo, walletAddress]);
 
   const handleCopyToClipboard = useCallback(
     (value: string) => {
@@ -34,10 +37,17 @@ function Information() {
     [enqueueSnackbar, t]
   );
 
+  const handleDownloadKeys = useCallback(() => {
+    downloadJSON(
+      { publicKey, privateKey, walletAddress },
+      `${t("appName")}-${userInfo?.email || userInfo?.id || ""}-keys`
+    );
+  }, [userInfo, privateKey, publicKey, walletAddress, t]);
+
   return (
     <>
       {information.map(({ key, value }) => (
-        <Box className={classes.container}>
+        <Box key={key} className={classes.container}>
           <Typography
             variant="overline"
             component="p"
@@ -55,12 +65,13 @@ function Information() {
             type="button"
             sx={{
               width: "100%",
-              height: "2.25rem",
               backgroundColor: "primary.main",
               color: "text.primary",
-              padding: "0 0.5rem",
+              minHeight: "2.25rem",
+              padding: "0.25rem 0.5rem",
               borderRadius: "0.25rem",
               textTransform: "none",
+              wordBreak: "break-all",
             }}
             variant="outlined"
             onClick={() => handleCopyToClipboard(value)}
@@ -95,6 +106,7 @@ function Information() {
             textTransform: "none",
           }}
           variant="outlined"
+          onClick={handleDownloadKeys}
         >
           <DownloadIcon />
         </Button>

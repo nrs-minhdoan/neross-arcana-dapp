@@ -1,5 +1,6 @@
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage/session";
+import { CookieStorage } from "redux-persist-cookie-storage";
+import Cookies from "js-cookie";
 import { createReducer } from "typesafe-actions";
 
 import { LoginType } from "../../sdks/arcanaNetwork";
@@ -13,9 +14,10 @@ import {
 const initialState: IAuthStoreState = {
   loginType: undefined,
   userInfo: undefined,
+  walletAddress: undefined,
+  publicKey: undefined,
   privateKey: undefined,
   loading: false,
-  error: undefined,
 };
 
 const authReducer = createReducer<IAuthStoreState>(initialState)
@@ -24,6 +26,8 @@ const authReducer = createReducer<IAuthStoreState>(initialState)
       ...state,
       loginType: payload.loginType,
       userInfo: payload.userInfo,
+      walletAddress: payload.walletAddress,
+      publicKey: payload.publicKey,
       privateKey: payload.privateKey,
     };
   })
@@ -32,6 +36,8 @@ const authReducer = createReducer<IAuthStoreState>(initialState)
       ...state,
       loginType: undefined,
       userInfo: undefined,
+      walletAddress: undefined,
+      publicKey: undefined,
       privateKey: undefined,
     };
   })
@@ -40,6 +46,8 @@ const authReducer = createReducer<IAuthStoreState>(initialState)
       ...state,
       loginType: undefined,
       userInfo: undefined,
+      walletAddress: undefined,
+      publicKey: undefined,
       privateKey: undefined,
       loading: true,
     };
@@ -49,18 +57,26 @@ const authReducer = createReducer<IAuthStoreState>(initialState)
       ...state,
       loginType: LoginType.google,
       userInfo: payload.userInfo,
+      walletAddress: payload.walletAddress,
+      publicKey: payload.publicKey,
       privateKey: payload.privateKey,
       loading: false,
     };
   })
-  .handleAction(initSessionWithGoogle.failure, (state, { payload }) => {
-    return { ...state, error: payload, loading: false };
+  .handleAction(initSessionWithGoogle.failure, (state) => {
+    return { ...state, loading: false };
   });
 
 const persistConfig = {
   key: "auth",
-  whitelist: ["loginType", "userInfo", "privateKey"],
-  storage,
+  whitelist: [
+    "loginType",
+    "userInfo",
+    "walletAddress",
+    "publicKey",
+    "privateKey",
+  ],
+  storage: new CookieStorage(Cookies, { expires: 43200000 }),
 };
 
 export default persistReducer(persistConfig, authReducer);

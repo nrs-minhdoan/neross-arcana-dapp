@@ -44,3 +44,19 @@ export const downloadFile = createAsyncAction(
   void,
   void
 >();
+
+export const deleteFile = createAsyncAction(
+  "file/DELETE_FILE",
+  "file/DELETE_FILE_SUCCEEDED",
+  "file/DELETE_FILE_FAILED"
+)<
+  {
+    id: string;
+    callbacks: {
+      onSuccess: () => void;
+      onError: () => void;
+    };
+  },
+  void,
+  void
+>();

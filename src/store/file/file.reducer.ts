@@ -1,7 +1,12 @@
 import { createReducer } from "typesafe-actions";
 
 import { IFileStoreState } from "../../models/store/file.model";
-import { downloadFile, getMyFiles, uploadFile } from "./file.action";
+import {
+  getMyFiles,
+  uploadFile,
+  downloadFile,
+  deleteFile,
+} from "./file.action";
 
 const initialState: IFileStoreState = {
   myFiles: [],
@@ -34,6 +39,15 @@ const fileReducer = createReducer<IFileStoreState>(initialState)
     return state;
   })
   .handleAction(downloadFile.failure, (state) => {
+    return state;
+  })
+  .handleAction(deleteFile.request, (state, { payload }) => {
+    return state;
+  })
+  .handleAction(deleteFile.success, (state, { payload }) => {
+    return state;
+  })
+  .handleAction(deleteFile.failure, (state, { payload }) => {
     return state;
   });
 export default fileReducer;

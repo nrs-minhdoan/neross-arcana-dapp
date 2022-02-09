@@ -74,6 +74,7 @@ function Download({ id }: IProps) {
           <DownloadIcon />
         </IconButton>
       </Tooltip>
+
       <Modal open={loading}>
         <Box
           sx={{

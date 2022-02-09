@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import React, { useMemo, useEffect } from "react";
 import uniqBy from "lodash/uniqBy";
 import formatter from "date-fns/format";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +13,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import ShareIcon from "@mui/icons-material/Share";
-import GroupRemoveIcon from "@mui/icons-material/GroupRemove";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { MyFile } from "../../models/store/file.model";
@@ -28,7 +24,7 @@ import Delete from "../../components/file/delete/Delete";
 import useI18nContext from "../../hooks/useI18nContext";
 
 import useStyles from "./myFiles.style";
-import { formatShortId, formatKBSize } from "../../utils/common";
+import { formatShortId, formatSizeInKB } from "../../utils/common";
 import Download from "../../components/file/download/Download";
 
 function MyFiles() {
@@ -36,9 +32,6 @@ function MyFiles() {
   const { myFiles, loading } = useSelector((store) => store.file);
   const classes = useStyles();
   const { t } = useI18nContext();
-  const [shareId, setShareId] = useState<string>("");
-  const [revokeId, setRevokeId] = useState<string>("");
-  const [deleteId, setDeleteId] = useState<string>("");
 
   const columns = useMemo<
     Array<{
@@ -85,86 +78,52 @@ function MyFiles() {
     dispatch(getMyFiles.request());
   }, [dispatch]);
 
-  const renderCellContent = useCallback(
-    (field: string, value: string | number) => {
-      switch (field) {
-        case "id":
-          return (
-            <Tooltip title={value as string} placement="top">
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ width: "max-content" }}
-              >
-                {formatShortId(value as string)}
-              </Typography>
-            </Tooltip>
-          );
-
-        case "lastModified":
-          return (
-            <Typography variant="body2" component="p">
-              {formatter(new Date(value as string), "dd/MM/yyyy HH:mm:ss")}
-            </Typography>
-          );
-
-        case "size":
-          return (
+  const renderCellContent = (field: string, value: string | number) => {
+    switch (field) {
+      case "id":
+        return (
+          <Tooltip title={value as string} placement="top">
             <Typography
               variant="body2"
               component="p"
-              sx={{ textAlign: "right" }}
+              sx={{ width: "max-content" }}
             >
-              {formatKBSize(value as number)} KB
+              {formatShortId(value as string)}
             </Typography>
-          );
+          </Tooltip>
+        );
 
-        case "actions":
-          return (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Download id={value as string} />
-              <Tooltip title={t("share") as string} placement="top">
-                <IconButton
-                  type="button"
-                  onClick={() => {
-                    setShareId(value as string);
-                  }}
-                >
-                  <ShareIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={t("revoke") as string} placement="top">
-                <IconButton
-                  type="button"
-                  onClick={() => {
-                    setRevokeId(value as string);
-                  }}
-                >
-                  <GroupRemoveIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={t("delete") as string} placement="top">
-                <IconButton
-                  type="button"
-                  onClick={() => {
-                    setDeleteId(value as string);
-                  }}
-                >
-                  <DeleteForeverIcon />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          );
-      }
-    },
-    [t]
-  );
+      case "lastModified":
+        return (
+          <Typography variant="body2" component="p">
+            {formatter(new Date(value as string), "dd/MM/yyyy HH:mm:ss")}
+          </Typography>
+        );
+
+      case "size":
+        return (
+          <Typography variant="body2" component="p" sx={{ textAlign: "right" }}>
+            {formatSizeInKB(value as number)} KB
+          </Typography>
+        );
+
+      case "actions":
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Download id={value as string} />
+            <Share id={value as string} />
+            <SharedUserAddresses id={value as string} />
+            <Delete id={value as string} />
+          </Box>
+        );
+    }
+  };
 
   return (
     <Card className={classes.container}>
@@ -227,24 +186,6 @@ function MyFiles() {
           </TableBody>
         </Table>
       </TableContainer>
-      <Share
-        id={shareId}
-        onClose={() => {
-          setShareId("");
-        }}
-      />
-      <SharedUserAddresses
-        id={revokeId}
-        onClose={() => {
-          setRevokeId("");
-        }}
-      />
-      <Delete
-        id={deleteId}
-        onClose={() => {
-          setDeleteId("");
-        }}
-      />
     </Card>
   );
 }

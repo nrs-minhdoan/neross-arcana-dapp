@@ -12,6 +12,6 @@ export function formatShortId(
   return `${start}...${end}`;
 }
 
-export function formatKBSize(byteSize: number) {
-  return Number(new BigNumber(byteSize).dividedBy(1024).toFixed(2));
+export function formatSizeInKB(sizeInByte: number) {
+  return Number(new BigNumber(sizeInByte).dividedBy(1024).toFixed(2));
 }

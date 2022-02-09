@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
@@ -13,16 +13,17 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import BackspaceIcon from "@mui/icons-material/Backspace";
+import GroupRemoveIcon from "@mui/icons-material/GroupRemove";
 
 import useI18nContext from "../../../hooks/useI18nContext";
 
 interface IProps {
   id: string;
-  onClose: () => void;
 }
 
-function SharedUserAddresses({ id, onClose }: IProps) {
+function SharedUserAddresses({ id }: IProps) {
   const { t } = useI18nContext();
+  const [open, setOpen] = useState<boolean>(false);
 
   const columns = useMemo<
     Array<{
@@ -48,70 +49,91 @@ function SharedUserAddresses({ id, onClose }: IProps) {
     ];
   }, []);
 
+  const toggleDialog = useCallback(() => {
+    setOpen(!open);
+  }, [open]);
+
   return (
-    <Dialog fullWidth maxWidth="xs" open={!!id} onClose={onClose}>
-      <DialogTitle>{t("sharedUserAddresses")}</DialogTitle>
-      <DialogContent>
-        <TableContainer sx={{ maxHeight: "25rem" }}>
-          <Table stickyHeader>
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.field}
-                    align={column.align}
-                    sx={{
-                      backgroundColor: "primary.main",
-                      minWidth: column.minWidth,
-                    }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => {
-                return (
-                  <TableRow hover tabIndex={-1} key={row.id}>
-                    {columns.map((column) => {
-                      const value = row[column.field];
-                      return (
-                        <TableCell
-                          key={`${row.id}-${column.field}`}
-                          align={column.align}
-                        >
-                          {column.field === "actions" ? (
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "flex-end",
-                              }}
-                            >
-                              <Tooltip
-                                title={t("revoke") as string}
-                                placement="top"
+    <>
+      <Tooltip title={t("revoke") as string} placement="top">
+        <IconButton type="button" onClick={toggleDialog}>
+          <GroupRemoveIcon />
+        </IconButton>
+      </Tooltip>
+      <Dialog
+        fullWidth
+        maxWidth="xs"
+        PaperProps={{
+          sx: {
+            backgroundImage: "none",
+          },
+        }}
+        open={open}
+        onClose={toggleDialog}
+      >
+        <DialogTitle>{t("sharedUserAddresses")}</DialogTitle>
+        <DialogContent>
+          <TableContainer sx={{ maxHeight: "25rem" }}>
+            <Table stickyHeader>
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.field}
+                      align={column.align}
+                      sx={{
+                        backgroundColor: "primary.main",
+                        minWidth: column.minWidth,
+                      }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => {
+                  return (
+                    <TableRow hover tabIndex={-1} key={row.id}>
+                      {columns.map((column) => {
+                        const value = row[column.field];
+                        return (
+                          <TableCell
+                            key={`${row.id}-${column.field}`}
+                            align={column.align}
+                          >
+                            {column.field === "actions" ? (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "flex-end",
+                                }}
                               >
-                                <IconButton type="button">
-                                  <BackspaceIcon />
-                                </IconButton>
-                              </Tooltip>
-                            </Box>
-                          ) : (
-                            value
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </DialogContent>
-    </Dialog>
+                                <Tooltip
+                                  title={t("revoke") as string}
+                                  placement="top"
+                                >
+                                  <IconButton type="button">
+                                    <BackspaceIcon />
+                                  </IconButton>
+                                </Tooltip>
+                              </Box>
+                            ) : (
+                              value
+                            )}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 

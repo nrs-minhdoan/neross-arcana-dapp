@@ -16,14 +16,17 @@ export const initSessionWithGoogle = createAsyncAction(
   "auth/INIT_SESSION_WITH_GOOGLE_SUCCEEDED",
   "auth/INIT_SESSION_WITH_GOOGLE_FAILED"
 )<
-  void,
+  {
+    onSuccess: () => void;
+    onError: () => void;
+  },
   {
     userInfo: UserInfo;
     walletAddress: string;
     publicKey: string;
     privateKey: string;
   },
-  string
+  void
 >();
 
 export const destroySession = createAction("auth/DESTROY_SESSION")();

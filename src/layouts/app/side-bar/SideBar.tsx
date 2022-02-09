@@ -13,7 +13,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SnippetFolderIcon from "@mui/icons-material/SnippetFolder";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
-import LockIcon from "@mui/icons-material/Lock";
+import EjectIcon from "@mui/icons-material/Eject";
 
 import { APP_ROUTES } from "../../../constants/routes.constant";
 import useI18nContext from "../../../hooks/useI18nContext";
@@ -22,8 +22,8 @@ import { destroySession } from "../../../store/auth/auth.action";
 import useStyles from "./sideBar.style";
 
 function SideBar() {
-  const classes = useStyles();
   const dispatch = useDispatch();
+  const classes = useStyles();
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useI18nContext();
@@ -31,7 +31,7 @@ function SideBar() {
 
   const handleLogout = useCallback(() => {
     dispatch(destroySession());
-    enqueueSnackbar(t("lockSuccessfully"), {
+    enqueueSnackbar(t("disconnected"), {
       variant: "success",
     });
   }, [dispatch, enqueueSnackbar, t]);
@@ -147,7 +147,7 @@ function SideBar() {
         </ListItemButton>
         <ListItemButton onClick={handleLogout}>
           <ListItemIcon>
-            <LockIcon color="error" />
+            <EjectIcon color="error" />
           </ListItemIcon>
           <ListItemText
             primaryTypographyProps={{
@@ -156,7 +156,7 @@ function SideBar() {
               },
               color: "error",
             }}
-            primary={t("lock")}
+            primary={t("disconnect")}
           />
         </ListItemButton>
       </List>

@@ -152,14 +152,14 @@ export class ArcanaNetworkSDK {
     return access.getUploadLimit();
   };
 
-  async uploadFile(
+  uploadFile = async (
     file: File,
     callbacks?: {
       onProgress?: (bytesUploaded: number, bytesTotal: number) => void;
       onSuccess?: () => void;
       onError?: () => void;
     }
-  ) {
+  ) => {
     this.initializeStorage();
     const uploader = await (this.storage as StorageProvider).getUploader();
     if (callbacks?.onProgress) {
@@ -172,7 +172,7 @@ export class ArcanaNetworkSDK {
       uploader.onError = callbacks.onError;
     }
     return uploader.upload(file);
-  }
+  };
 
   getDownloadLimit = async () => {
     this.initializeStorage();
@@ -181,7 +181,7 @@ export class ArcanaNetworkSDK {
   };
 
   downloadFile = async (
-    file: File,
+    id: string,
     callbacks: {
       onProgress?: (
         bytesDownloaded: number,
@@ -198,7 +198,18 @@ export class ArcanaNetworkSDK {
     if (callbacks?.onSuccess) {
       downloader.onSuccess = callbacks.onSuccess;
     }
-    return downloader.download(file);
+    return downloader.download(id);
+  };
+
+  getUploadedFilesByMe = async () => {
+    this.initializeStorage();
+    return (this.storage as StorageProvider).myFiles();
+  };
+
+  revokeFile = async (payload: { id: string; address: string }) => {
+    this.initializeStorage();
+    const access = await (this.storage as StorageProvider).getAccess();
+    return access.revoke(payload.id, payload.address);
   };
 
   getSharedFilesWithMe = async () => {
@@ -214,17 +225,6 @@ export class ArcanaNetworkSDK {
     this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.share([payload.id], [payload.publicKey], [payload.validity]);
-  };
-
-  getUploadedFilesByMe = async () => {
-    this.initializeStorage();
-    return (this.storage as StorageProvider).myFiles();
-  };
-
-  revokeFile = async (payload: { id: string; address: string }) => {
-    this.initializeStorage();
-    const access = await (this.storage as StorageProvider).getAccess();
-    return access.revoke(payload.id, payload.address);
   };
 
   logout = () => {

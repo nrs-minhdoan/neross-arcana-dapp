@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 
@@ -24,6 +24,7 @@ function Upload() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleProgress = useCallback(
     (bytesUploaded: number, bytesTotal: number) => {
@@ -73,6 +74,7 @@ function Upload() {
       } else {
         handleError();
       }
+      (inputRef.current as any).value = null;
     },
     [dispatch, handleProgress, handleSuccess, handleError]
   );
@@ -81,6 +83,7 @@ function Upload() {
     <>
       <label htmlFor="contained-button-file">
         <input
+          ref={inputRef}
           accept="*"
           id="contained-button-file"
           type="file"

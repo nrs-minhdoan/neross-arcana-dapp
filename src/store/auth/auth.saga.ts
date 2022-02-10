@@ -32,7 +32,7 @@ function* handleInitSessionWithGoogle({
     );
     payload.onSuccess();
   } catch (e) {
-    console.log(e);
+    console.error(e);
     payload.onError();
     yield put(initSessionWithGoogle.failure());
   }

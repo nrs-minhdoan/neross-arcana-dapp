@@ -32,14 +32,7 @@ const authReducer = createReducer<IAuthStoreState>(initialState)
     };
   })
   .handleAction(destroySession, (state) => {
-    return {
-      ...state,
-      loginType: undefined,
-      userInfo: undefined,
-      walletAddress: undefined,
-      publicKey: undefined,
-      privateKey: undefined,
-    };
+    return initialState;
   })
   .handleAction(initSessionWithGoogle.request, (state) => {
     return {

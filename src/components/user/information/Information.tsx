@@ -80,6 +80,7 @@ function Information() {
           </Button>
         </Box>
       ))}
+      <div id="copyToClipboard" />
       <Box className={classes.container}>
         <Typography
           variant="overline"

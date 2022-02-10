@@ -32,6 +32,8 @@
   "userInformation": "Thông tin người dùng",
   "name": "Tên",
   "email": "Email",
+  "emailIsRequired": "Email là bắt buộc.",
+  "emailInvalid": "Email không hợp lệ.",
   "wallet": "Ví",
   "downloadKeys": "Tải về khóa cá nhân",
   "download": "Tải về",

@@ -23,9 +23,10 @@ import SharedUserAddresses from "../../components/file/shared-user-addresses/Sha
 import Delete from "../../components/file/delete/Delete";
 import useI18nContext from "../../hooks/useI18nContext";
 
-import useStyles from "./myFiles.style";
 import { formatShortId, formatSizeInKB } from "../../utils/common";
 import Download from "../../components/file/download/Download";
+
+import useStyles from "./myFiles.style";
 
 function MyFiles() {
   const dispatch = useDispatch();

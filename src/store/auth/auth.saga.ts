@@ -3,7 +3,23 @@ import { call, put, takeLatest } from "@redux-saga/core/effects";
 import arcanaNetworkSDK, { LoginType } from "../../sdks/arcanaNetwork";
 import { plainToClass } from "../../utils/classTransformer";
 import { UserInfo } from "../../models/store/auth.model";
-import { initSessionWithGoogle, destroySession } from "./auth.action";
+import {
+  validateSession,
+  initSessionWithGoogle,
+  destroySession,
+} from "./auth.action";
+
+function* handleValidateSession({
+  payload,
+}: ReturnType<typeof validateSession>) {
+  const isLoggedIn = arcanaNetworkSDK.isLoggedIn;
+  if (isLoggedIn) {
+    payload.callbacks.onSuccess();
+  } else {
+    yield put(destroySession());
+    payload.callbacks.onError();
+  }
+}
 
 function* handleInitSessionWithGoogle({
   payload,
@@ -33,16 +49,17 @@ function* handleInitSessionWithGoogle({
     payload.onSuccess();
   } catch (e) {
     console.error(e);
-    payload.onError();
     yield put(initSessionWithGoogle.failure());
+    payload.onError();
   }
 }
 
-function handleDestroySession() {
-  arcanaNetworkSDK.logout();
+function* handleDestroySession() {
+  yield call(arcanaNetworkSDK.logout);
 }
 
 export default function* authSaga() {
+  yield takeLatest(validateSession, handleValidateSession);
   yield takeLatest(initSessionWithGoogle.request, handleInitSessionWithGoogle);
   yield takeLatest(destroySession, handleDestroySession);
 }

@@ -45,6 +45,23 @@ export const downloadFile = createAsyncAction(
   void
 >();
 
+export const shareFile = createAsyncAction(
+  "file/SHARE_FILE",
+  "file/SHARE_FILE_SUCCEEDED",
+  "file/SHARE_FILE_FAILED"
+)<
+  {
+    id: string;
+    email: string;
+    callbacks: {
+      onSuccess: () => void;
+      onError: () => void;
+    };
+  },
+  void,
+  void
+>();
+
 export const deleteFile = createAsyncAction(
   "file/DELETE_FILE",
   "file/DELETE_FILE_SUCCEEDED",

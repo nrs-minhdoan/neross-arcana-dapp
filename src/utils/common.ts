@@ -15,3 +15,12 @@ export function formatShortId(
 export function formatSizeInKB(sizeInByte: number) {
   return Number(new BigNumber(sizeInByte).dividedBy(1024).toFixed(2));
 }
+
+export function validateEmail(email: string) {
+  return !!String(email)
+    .trim()
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+}

@@ -5,11 +5,11 @@ function copyToClipboard(text: string) {
   input.style.top = "0";
   input.style.opacity = "0";
   input.setAttribute("value", text);
-  document.body.appendChild(input);
+  document.getElementById("copyToClipboard")?.appendChild(input);
   input.focus();
   input.select();
   document.execCommand("copy");
-  document.body.removeChild(input);
+  document.getElementById("copyToClipboard")?.removeChild(input);
 }
 
 export default copyToClipboard;

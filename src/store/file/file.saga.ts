@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 
-import arcanaNetworkSDK from "../../sdks/arcanaNetwork";
+import arcanaNetworkSDK, { LoginType } from "../../sdks/arcanaNetwork";
 import { APP_ROUTES } from "../../constants/routes.constant";
 import { plainToClass } from "../../utils/classTransformer";
 import { MyFile } from "../../models/store/file.model";
@@ -8,6 +8,7 @@ import {
   getMyFiles,
   uploadFile,
   downloadFile,
+  shareFile,
   deleteFile,
 } from "./file.action";
 
@@ -34,8 +35,8 @@ function* handleUploadFile({ payload }: ReturnType<typeof uploadFile.request>) {
     }
   } catch (e: any) {
     console.error(e);
-    payload.callbacks.onError();
     yield put(uploadFile.failure());
+    payload.callbacks.onError();
   }
 }
 
@@ -50,8 +51,30 @@ function* handleDownloadFile({
     yield put(downloadFile.success());
   } catch (e: any) {
     console.error(e);
-    payload.callbacks.onError();
     yield put(downloadFile.failure());
+    payload.callbacks.onError();
+  }
+}
+
+function* handleShareFile({ payload }: ReturnType<typeof shareFile.request>) {
+  try {
+    const response: Awaited<
+      ReturnType<typeof arcanaNetworkSDK.getPublicKeyFromAuth>
+    > = yield call(arcanaNetworkSDK.getPublicKeyFromAuth, {
+      verifier: LoginType.google,
+      username: payload.email,
+    });
+    yield call(arcanaNetworkSDK.shareFile, {
+      id: payload.id,
+      publicKey: response,
+      validity: 1,
+    });
+    yield put(shareFile.success());
+    payload.callbacks.onSuccess();
+  } catch (e: any) {
+    console.error(e);
+    yield put(shareFile.failure());
+    payload.callbacks.onError();
   }
 }
 
@@ -74,5 +97,6 @@ export default function* fileSaga() {
   yield takeLatest(getMyFiles.request, handleGetMyFiles);
   yield takeLatest(uploadFile.request, handleUploadFile);
   yield takeLatest(downloadFile.request, handleDownloadFile);
+  yield takeLatest(shareFile.request, handleShareFile);
   yield takeLatest(deleteFile.request, handleDeleteFile);
 }

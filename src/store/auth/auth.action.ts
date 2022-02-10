@@ -3,6 +3,13 @@ import { createAction, createAsyncAction } from "typesafe-actions";
 import { LoginType } from "../../sdks/arcanaNetwork";
 import { UserInfo } from "../../models/store/auth.model";
 
+export const validateSession = createAction("auth/VALIDATE_SESSION")<{
+  callbacks: {
+    onSuccess: () => void;
+    onError: () => void;
+  };
+}>();
+
 export const initSession = createAction("auth/INIT_SESSION")<{
   loginType: LoginType;
   userInfo: UserInfo;

@@ -1,10 +1,12 @@
 import { createReducer } from "typesafe-actions";
 
 import { IFileStoreState } from "../../models/store/file.model";
+import { destroySession } from "../auth/auth.action";
 import {
   getMyFiles,
   uploadFile,
   downloadFile,
+  shareFile,
   deleteFile,
 } from "./file.action";
 
@@ -41,13 +43,25 @@ const fileReducer = createReducer<IFileStoreState>(initialState)
   .handleAction(downloadFile.failure, (state) => {
     return state;
   })
-  .handleAction(deleteFile.request, (state, { payload }) => {
+  .handleAction(shareFile.request, (state) => {
     return state;
   })
-  .handleAction(deleteFile.success, (state, { payload }) => {
+  .handleAction(shareFile.success, (state) => {
     return state;
   })
-  .handleAction(deleteFile.failure, (state, { payload }) => {
+  .handleAction(shareFile.failure, (state) => {
     return state;
+  })
+  .handleAction(deleteFile.request, (state) => {
+    return state;
+  })
+  .handleAction(deleteFile.success, (state) => {
+    return state;
+  })
+  .handleAction(deleteFile.failure, (state) => {
+    return state;
+  })
+  .handleAction(destroySession, () => {
+    return initialState;
   });
 export default fileReducer;

@@ -18,7 +18,7 @@ function* handleGetMyFiles() {
     > = yield call(arcanaNetworkSDK.getUploadedFilesByMe);
     yield put(getMyFiles.success(plainToClass(MyFile, response)));
   } catch (e: any) {
-    console.log(e);
+    console.error(e);
     yield put(getMyFiles.failure());
   }
 }
@@ -33,7 +33,7 @@ function* handleUploadFile({ payload }: ReturnType<typeof uploadFile.request>) {
       yield call(handleGetMyFiles);
     }
   } catch (e: any) {
-    console.log(e);
+    console.error(e);
     payload.callbacks.onError();
     yield put(uploadFile.failure());
   }
@@ -49,7 +49,7 @@ function* handleDownloadFile({
     });
     yield put(downloadFile.success());
   } catch (e: any) {
-    console.log(e);
+    console.error(e);
     payload.callbacks.onError();
     yield put(downloadFile.failure());
   }
@@ -64,7 +64,7 @@ function* handleDeleteFile({ payload }: ReturnType<typeof deleteFile.request>) {
     }
     payload.callbacks.onSuccess();
   } catch (e: any) {
-    console.log(e);
+    console.error(e);
     payload.callbacks.onError();
     yield put(deleteFile.failure());
   }

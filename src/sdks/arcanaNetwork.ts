@@ -34,13 +34,7 @@ export class ArcanaNetworkSDK {
     this.auth = new AuthProvider({
       appID: CONFIG.APP_ID,
       network: "testnet",
-      oauthCreds: [
-        {
-          type: LoginType.google,
-          clientId: CONFIG.GOOGLE_CLIENT_ID,
-          redirectUri: `${CONFIG.APP_URL}${AUTH_ROUTES.AUTH_REDIRECT}`,
-        },
-      ],
+      redirectUri: `${CONFIG.APP_URL}${AUTH_ROUTES.AUTH_REDIRECT}`,
     });
   }
 
@@ -62,13 +56,7 @@ export class ArcanaNetworkSDK {
       this.auth = new AuthProvider({
         appID: CONFIG.APP_ID,
         network: "testnet",
-        oauthCreds: [
-          {
-            type: LoginType.google,
-            clientId: CONFIG.GOOGLE_CLIENT_ID,
-            redirectUri: `${CONFIG.APP_URL}${AUTH_ROUTES.AUTH_REDIRECT}`,
-          },
-        ],
+        redirectUri: `${CONFIG.APP_URL}${AUTH_ROUTES.AUTH_REDIRECT}`,
       });
     }
   };

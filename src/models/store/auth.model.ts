@@ -18,5 +18,6 @@ export interface IAuthStoreState {
   walletAddress?: string;
   publicKey?: string;
   privateKey?: string;
+  isNewSession: boolean;
   loading: boolean;
 }

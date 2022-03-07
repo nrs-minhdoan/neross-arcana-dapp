@@ -18,18 +18,17 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@arcana/auth@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@arcana/auth/-/auth-0.0.6.tgz#5c02f6c2e1e3a1a3188c61cd13cd46ee307dc461"
-  integrity sha512-2u8Y+1st9d30vTR8gpxX4qAb6HLKQqNkBC1P98axXBxYuZLVjVnpurH3lDUlW+zkheSjoRvVVyth+iqGbpEpbA==
+"@arcana/auth@https://testnet-dev.s3.ap-south-1.amazonaws.com/arcana-auth-0.0.10.tgz":
+  version "0.0.10"
+  resolved "https://testnet-dev.s3.ap-south-1.amazonaws.com/arcana-auth-0.0.10.tgz#d16ec4761f57f40890dfe2613c259dfda78512b0"
   dependencies:
-    "@arcana/keystore" "^0.0.6"
+    "@arcana/keystore" "https://testnet-dev.s3.ap-south-1.amazonaws.com/arcana-keystore-0.0.8.tgz"
     "@stablelib/base64" "^1.0.1"
+    ethers "^5.5.1"
 
-"@arcana/keystore@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@arcana/keystore/-/keystore-0.0.6.tgz#cae26d4fdba76c5f0fce9220f5bd543ebe911e28"
-  integrity sha512-LQmYaylNmb7oFxDoeu7JK4gsB5rL6jM0QdsBj2G7P0mUgugTSgvgnmrD48zZUccYMLdqIZHuhc492M3Vbt/v7Q==
+"@arcana/keystore@https://testnet-dev.s3.ap-south-1.amazonaws.com/arcana-keystore-0.0.8.tgz":
+  version "0.0.8"
+  resolved "https://testnet-dev.s3.ap-south-1.amazonaws.com/arcana-keystore-0.0.8.tgz#bce2a1c60c168ddb22962da86d0324dbf04f5b1e"
   dependencies:
     "@sentry/browser" "^6.13.3"
     "@sentry/tracing" "^6.13.3"
@@ -2389,7 +2388,17 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.0.tgz#7f698254aadf921e48dda8c0a6b304026b8a9323"
   integrity sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A==
 
-"@sentry/browser@^6.13.3", "@sentry/browser@^6.15.0":
+"@sentry/browser@^6.13.3":
+  version "6.18.1"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.18.1.tgz#7c61d53260a6cd8999a46a0bd3159773b93fd1ea"
+  integrity sha512-OZmk6RNcdQWxUkC8HBEruqpWUsaX/+pb1J/R5cDfHNeePLbDj9b8KFfs9QkgyZmmEP6l0Nu80TuDsdPF0q4uyw==
+  dependencies:
+    "@sentry/core" "6.18.1"
+    "@sentry/types" "6.18.1"
+    "@sentry/utils" "6.18.1"
+    tslib "^1.9.3"
+
+"@sentry/browser@^6.15.0":
   version "6.17.6"
   resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.17.6.tgz#146702ad9cb73bbccea9d08873a0abb04f6c99b9"
   integrity sha512-VUyYBzAferaMg/40hmhEdaLznd3NlT7gkQ0YPHDZdDHMunJVA+413yqCHsRTbzfVxzfmlWQtz5QzPBLQeubdzg==
@@ -2410,6 +2419,17 @@
     "@sentry/utils" "6.17.6"
     tslib "^1.9.3"
 
+"@sentry/core@6.18.1":
+  version "6.18.1"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.18.1.tgz#6d09c4f59b30b62d5d288b5f3f3af56f1f7e6336"
+  integrity sha512-9V8Q+3Asi+3RL67CSIMMZ9mjMsu2/hrpQszYStX7hPPpAZIlAKk2MT5B+na/r80iWKhy+3Ts6aDFF218QtnsVw==
+  dependencies:
+    "@sentry/hub" "6.18.1"
+    "@sentry/minimal" "6.18.1"
+    "@sentry/types" "6.18.1"
+    "@sentry/utils" "6.18.1"
+    tslib "^1.9.3"
+
 "@sentry/hub@6.17.6":
   version "6.17.6"
   resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-6.17.6.tgz#af387ed1c180c05839610091de21ffb895b1403c"
@@ -2417,6 +2437,15 @@
   dependencies:
     "@sentry/types" "6.17.6"
     "@sentry/utils" "6.17.6"
+    tslib "^1.9.3"
+
+"@sentry/hub@6.18.1":
+  version "6.18.1"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-6.18.1.tgz#fcfb8cb84515efefaf4e48472305ea5a71455abb"
+  integrity sha512-+zGzgc/xX3an/nKA3ELMn9YD9VmqbNaNwWZ5/SjNUvzsYHh2UNZ7YzT8WawQsRVOXLljyCKxkWpFB4EchiYGbw==
+  dependencies:
+    "@sentry/types" "6.18.1"
+    "@sentry/utils" "6.18.1"
     tslib "^1.9.3"
 
 "@sentry/minimal@6.17.6":
@@ -2428,7 +2457,27 @@
     "@sentry/types" "6.17.6"
     tslib "^1.9.3"
 
-"@sentry/tracing@^6.13.3", "@sentry/tracing@^6.15.0":
+"@sentry/minimal@6.18.1":
+  version "6.18.1"
+  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-6.18.1.tgz#eac73d2262589930aa0bb33e0e12380ac5b766a9"
+  integrity sha512-dm+0MuasWNi/LASvHX+09oCo8IBZY5WpMK8qXvQMnwQ9FVfklrjcfEI3666WORDCmeUhDCSeL2MbjPDm+AmPLg==
+  dependencies:
+    "@sentry/hub" "6.18.1"
+    "@sentry/types" "6.18.1"
+    tslib "^1.9.3"
+
+"@sentry/tracing@^6.13.3":
+  version "6.18.1"
+  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-6.18.1.tgz#7cc54b328dd051102900ade53e907e7441426f83"
+  integrity sha512-OxozmSfxGx246Ae1XhO01I7ZWxO3briwMBh55E5KyjQb8fuS9gVE7Uy8ZRs5hhNjDutFAU7nMtC0zipfVxP6fg==
+  dependencies:
+    "@sentry/hub" "6.18.1"
+    "@sentry/minimal" "6.18.1"
+    "@sentry/types" "6.18.1"
+    "@sentry/utils" "6.18.1"
+    tslib "^1.9.3"
+
+"@sentry/tracing@^6.15.0":
   version "6.17.6"
   resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-6.17.6.tgz#40f6e6166e05059c7b826ced70056ba06d5722e8"
   integrity sha512-+h5ov+zEm5WH9+vmFfdT4EIqBOW7Tggzh0BDz8QRStRc2JbvEiSZDs+HlsycBwWMQi/ucJs93FPtNnWjW+xvBw==
@@ -2444,12 +2493,25 @@
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.17.6.tgz#7065df1433abfd8127462a6fe6f0538dbc307209"
   integrity sha512-peGM873lDJtHd/jwW9Egr/hhxLuF0bcPIf2kMZlvEvW/G5GCbuaCR4ArQJlh7vQyma+NLn/XdojpJkC0TomKrw==
 
+"@sentry/types@6.18.1":
+  version "6.18.1"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.18.1.tgz#e2de38dd0da8096a5d22f8effc6756c919266ede"
+  integrity sha512-wp741NoBKnXE/4T9L723sWJ8EcNMxeTIT1smgNJOfbPwrsDICoYmGEt6JFa05XHpWBGI66WuNvnDjoHVeh6zhA==
+
 "@sentry/utils@6.17.6":
   version "6.17.6"
   resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.17.6.tgz#900d75f04e126f9ccb73a68cec574038375dd33e"
   integrity sha512-RI797N8Ax5yuKUftVX6dc0XmXqo5CN7XqJYPFzYC8udutQ4L8ZYadtUcqNsdz1ZQxl+rp0XK9Q6wjoWmsI2RXA==
   dependencies:
     "@sentry/types" "6.17.6"
+    tslib "^1.9.3"
+
+"@sentry/utils@6.18.1":
+  version "6.18.1"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.18.1.tgz#1aa819502b042540612f4db7bcb86c7b176f5a6b"
+  integrity sha512-IFZmuvA+c5lDGlZEri13JSyUP0BHelzY0S4dcKxAzskPW+BtBdQDgYGV90iED1y+IRMLawWb34GF7HyJSouN1Q==
+  dependencies:
+    "@sentry/types" "6.18.1"
     tslib "^1.9.3"
 
 "@sinonjs/commons@^1.7.0":
@@ -5655,7 +5717,7 @@ ethers@5.0.32:
     "@ethersproject/web" "5.0.14"
     "@ethersproject/wordlists" "5.0.10"
 
-ethers@^5.3.1, ethers@^5.4.5:
+ethers@^5.3.1, ethers@^5.4.5, ethers@^5.5.1:
   version "5.5.4"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.5.4.tgz#e1155b73376a2f5da448e4a33351b57a885f4352"
   integrity sha512-N9IAXsF8iKhgHIC6pquzRgPBJEzc9auw3JoRkaKe+y4Wl/LFBtDDunNe7YmdomontECAcC5APaAgWZBiu1kirw==
@@ -10962,7 +11024,20 @@ web-vitals@^2.1.0:
   resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-2.1.4.tgz#76563175a475a5e835264d373704f9dde718290c"
   integrity sha512-sVWcwhU5mX6crfI5Vd2dC4qchyTqxV8URinzt25XqVh+bHEPGH4C3NPrNionCP7Obx59wrYEbNlw4Z8sjALzZg==
 
-web3-utils@^1.5.2, web3-utils@^1.7.0:
+web3-utils@^1.5.2:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.7.1.tgz#77d8bacaf426c66027d8aa4864d77f0ed211aacd"
+  integrity sha512-fef0EsqMGJUgiHPdX+KN9okVWshbIumyJPmR+btnD1HgvoXijKEkuKBv0OmUqjbeqmLKP2/N9EiXKJel5+E1Dw==
+  dependencies:
+    bn.js "^4.11.9"
+    ethereum-bloom-filters "^1.0.6"
+    ethereumjs-util "^7.1.0"
+    ethjs-unit "0.1.6"
+    number-to-bn "1.7.0"
+    randombytes "^2.1.0"
+    utf8 "3.0.0"
+
+web3-utils@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.7.0.tgz#c59f0fd43b2449357296eb54541810b99b1c771c"
   integrity sha512-O8Tl4Ky40Sp6pe89Olk2FsaUkgHyb5QAXuaKo38ms3CxZZ4d3rPGfjP9DNKGm5+IUgAZBNpF1VmlSmNCqfDI1w==

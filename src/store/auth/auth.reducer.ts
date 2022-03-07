@@ -17,6 +17,7 @@ const initialState: IAuthStoreState = {
   walletAddress: undefined,
   publicKey: undefined,
   privateKey: undefined,
+  isNewSession: false,
   loading: false,
 };
 
@@ -53,6 +54,7 @@ const authReducer = createReducer<IAuthStoreState>(initialState)
       walletAddress: payload.walletAddress,
       publicKey: payload.publicKey,
       privateKey: payload.privateKey,
+      isNewSession: true,
       loading: false,
     };
   })

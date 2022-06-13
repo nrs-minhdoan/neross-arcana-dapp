@@ -8,6 +8,12 @@ export const getMyFiles = createAsyncAction(
   "file/GET_MY_FILES_FAILED"
 )<void, Array<MyFile>, void>();
 
+export const getSharedWithMeFiles = createAsyncAction(
+  "file/GET_SHARED_WITH_ME_FILES",
+  "file/GET_SHARED_WITH_ME_FILES_SUCCEEDED",
+  "file/GET_SHARED_WITH_ME_FILES_FAILED"
+)<void, Array<MyFile>, void>();
+
 export const uploadFile = createAsyncAction(
   "file/UPLOAD_FILE",
   "file/UPLOAD_FILE_SUCCEEDED",

@@ -10,5 +10,6 @@ export class MyFile {
 
 export interface IFileStoreState {
   myFiles: Array<MyFile>;
+  sharedWithMeFiles: Array<MyFile>;
   loading: boolean;
 }

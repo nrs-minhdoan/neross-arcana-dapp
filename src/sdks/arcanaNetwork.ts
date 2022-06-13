@@ -125,6 +125,11 @@ export class ArcanaNetworkSDK {
     });
   };
 
+  getWalletAddressFromPublicKey = (publicKey: string) => {
+    const walletAddress = `0x${keccak256(publicKey).slice(64 - 38)}`;
+    return walletAddress;
+  };
+
   getWalletAddressFromPrivateKey = (privateKey: string) => {
     const key = ec.keyFromPrivate(privateKey, "hex");
     const publicKey = key.getPublic().encode("hex", true).slice(2);

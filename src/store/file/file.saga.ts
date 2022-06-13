@@ -6,6 +6,7 @@ import { plainToClass } from "../../utils/classTransformer";
 import { MyFile } from "../../models/store/file.model";
 import {
   getMyFiles,
+  getSharedWithMeFiles,
   uploadFile,
   downloadFile,
   shareFile,
@@ -21,6 +22,18 @@ function* handleGetMyFiles() {
   } catch (e: any) {
     console.error(e);
     yield put(getMyFiles.failure());
+  }
+}
+
+function* handleGetShareWithMeFiles() {
+  try {
+    const response: Awaited<
+      ReturnType<typeof arcanaNetworkSDK.getSharedFilesWithMe>
+    > = yield call(arcanaNetworkSDK.getSharedFilesWithMe);
+    yield put(getSharedWithMeFiles.success(plainToClass(MyFile, response)));
+  } catch (e: any) {
+    console.error(e);
+    yield put(getSharedWithMeFiles.failure());
   }
 }
 
@@ -95,6 +108,7 @@ function* handleDeleteFile({ payload }: ReturnType<typeof deleteFile.request>) {
 
 export default function* fileSaga() {
   yield takeLatest(getMyFiles.request, handleGetMyFiles);
+  yield takeLatest(getSharedWithMeFiles.request, handleGetShareWithMeFiles);
   yield takeLatest(uploadFile.request, handleUploadFile);
   yield takeLatest(downloadFile.request, handleDownloadFile);
   yield takeLatest(shareFile.request, handleShareFile);

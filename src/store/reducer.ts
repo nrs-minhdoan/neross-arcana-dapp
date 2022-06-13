@@ -4,6 +4,7 @@ import { ActionType } from "typesafe-actions";
 import { IStoreState } from "../models/store";
 import authReducer from "./auth/auth.reducer";
 import fileReducer from "./file/file.reducer";
+import limitReducer from "./limit/limit.reducer";
 
 const rootReducer: ReducersMapObject<
   IStoreState,
@@ -11,6 +12,7 @@ const rootReducer: ReducersMapObject<
 > = {
   auth: authReducer,
   file: fileReducer,
+  limit: limitReducer,
 };
 
 export default combineReducers(rootReducer);

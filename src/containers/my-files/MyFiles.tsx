@@ -21,10 +21,10 @@ import { getMyFiles } from "../../store/file/file.action";
 import Share from "../../components/file/share/Share";
 import SharedUserAddresses from "../../components/file/shared-user-addresses/SharedUserAddresses";
 import Delete from "../../components/file/delete/Delete";
+import Download from "../../components/file/download/Download";
 import useI18nContext from "../../hooks/useI18nContext";
 
 import { formatShortId, formatSizeInKB } from "../../utils/common";
-import Download from "../../components/file/download/Download";
 
 import useStyles from "./myFiles.style";
 

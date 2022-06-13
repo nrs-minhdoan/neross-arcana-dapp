@@ -1,6 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
+import uniqBy from "lodash/uniqBy";
+import formatter from "date-fns/format";
+import { useDispatch, useSelector } from "react-redux";
 
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,15 +13,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import DownloadIcon from "@mui/icons-material/Download";
+import CircularProgress from "@mui/material/CircularProgress";
 
+import { MyFile } from "../../models/store/file.model";
 import withAuth from "../../hocs/withAuth";
+import { getSharedWithMeFiles } from "../../store/file/file.action";
+import Download from "../../components/file/download/Download";
 import useI18nContext from "../../hooks/useI18nContext";
+
+import { formatShortId, formatSizeInKB } from "../../utils/common";
 
 import useStyles from "./sharedWithMe.style";
 
 function SharedWithMe() {
+  const dispatch = useDispatch();
+  const { sharedWithMeFiles, loading } = useSelector((store) => store.file);
   const classes = useStyles();
   const { t } = useI18nContext();
 
@@ -42,16 +52,53 @@ function SharedWithMe() {
     ];
   }, [t]);
 
-  const rows = useMemo<Array<{ [key: string]: any }>>(() => {
-    return [
-      {
-        id: "empty_file_id",
-        lastModified: "empty_last_modified",
-        size: "empty_size",
-        actions: "empty_actions",
-      },
-    ];
-  }, []);
+  useEffect(() => {
+    dispatch(getSharedWithMeFiles.request());
+  }, [dispatch]);
+
+  const renderCellContent = (field: string, value: string | number) => {
+    switch (field) {
+      case "id":
+        return (
+          <Tooltip title={value as string} placement="top">
+            <Typography
+              variant="body2"
+              component="p"
+              sx={{ width: "max-content" }}
+            >
+              {formatShortId(value as string)}
+            </Typography>
+          </Tooltip>
+        );
+
+      case "lastModified":
+        return (
+          <Typography variant="body2" component="p">
+            {formatter(new Date(value as string), "dd/MM/yyyy HH:mm:ss")}
+          </Typography>
+        );
+
+      case "size":
+        return (
+          <Typography variant="body2" component="p" sx={{ textAlign: "right" }}>
+            {formatSizeInKB(value as number)} KB
+          </Typography>
+        );
+
+      case "actions":
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Download id={value as string} />
+          </Box>
+        );
+    }
+  };
 
   return (
     <Card className={classes.container}>
@@ -74,39 +121,42 @@ function SharedWithMe() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => {
-              return (
-                <TableRow hover tabIndex={-1} key={row.id}>
-                  {columns.map((column) => {
-                    const value = row[column.field];
-                    return (
-                      <TableCell key={column.field} align={column.align}>
-                        {column.field === "actions" ? (
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "flex-end",
-                            }}
-                          >
-                            <Tooltip
-                              title={t("download") as string}
-                              placement="top"
-                            >
-                              <IconButton>
-                                <DownloadIcon />
-                              </IconButton>
-                            </Tooltip>
-                          </Box>
-                        ) : (
-                          value
-                        )}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
+            {loading ? (
+              <TableRow>
+                <TableCell align="center" colSpan={4}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <CircularProgress size={24} color="secondary" />
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ) : (
+              uniqBy(sharedWithMeFiles, "id").map((file) => {
+                return (
+                  <TableRow hover tabIndex={-1} key={file.id}>
+                    {columns.map((column) => {
+                      const value =
+                        column.field === "actions"
+                          ? file.id
+                          : file[column.field as keyof MyFile];
+                      return (
+                        <TableCell
+                          key={`${file.id}-${column.field}`}
+                          align={column.align}
+                        >
+                          {renderCellContent(column.field, value)}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })
+            )}
           </TableBody>
         </Table>
       </TableContainer>

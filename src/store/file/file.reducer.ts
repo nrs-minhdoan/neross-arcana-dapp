@@ -4,6 +4,7 @@ import { IFileStoreState } from "../../models/store/file.model";
 import { destroySession } from "../auth/auth.action";
 import {
   getMyFiles,
+  getSharedWithMeFiles,
   uploadFile,
   downloadFile,
   shareFile,
@@ -12,6 +13,7 @@ import {
 
 const initialState: IFileStoreState = {
   myFiles: [],
+  sharedWithMeFiles: [],
   loading: false,
 };
 
@@ -23,6 +25,15 @@ const fileReducer = createReducer<IFileStoreState>(initialState)
     return { ...state, myFiles: payload, loading: false };
   })
   .handleAction(getMyFiles.failure, (state) => {
+    return { ...state, loading: false };
+  })
+  .handleAction(getSharedWithMeFiles.request, (state) => {
+    return { ...state, sharedWithMeFiles: [], loading: true };
+  })
+  .handleAction(getSharedWithMeFiles.success, (state, { payload }) => {
+    return { ...state, sharedWithMeFiles: payload, loading: false };
+  })
+  .handleAction(getSharedWithMeFiles.failure, (state) => {
     return { ...state, loading: false };
   })
   .handleAction(uploadFile.request, (state) => {
@@ -64,4 +75,5 @@ const fileReducer = createReducer<IFileStoreState>(initialState)
   .handleAction(destroySession, () => {
     return initialState;
   });
+
 export default fileReducer;

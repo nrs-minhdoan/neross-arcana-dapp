@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React, { useMemo, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, matchPath } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -16,18 +16,38 @@ import FolderSharedIcon from "@mui/icons-material/FolderShared";
 import EjectIcon from "@mui/icons-material/Eject";
 
 import { APP_ROUTES } from "../../../constants/routes.constant";
+import {
+  getBandwidthStatus,
+  getStorageStatus,
+} from "../../../store/limit/limit.action";
 import useI18nContext from "../../../hooks/useI18nContext";
 import { destroySession } from "../../../store/auth/auth.action";
+
+import { formatSizeInKB } from "../../../utils/common";
 
 import useStyles from "./sideBar.style";
 
 function SideBar() {
   const dispatch = useDispatch();
+  const { storage, bandwidth } = useSelector((store) => store.limit);
   const classes = useStyles();
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useI18nContext();
   const { enqueueSnackbar } = useSnackbar();
+
+  const storageUsedPercent = useMemo(() => {
+    return !storage.limit ? 0 : (storage.used / storage.limit) * 100;
+  }, [storage]);
+
+  const bandwidthUsedPercent = useMemo(() => {
+    return !bandwidth.limit ? 0 : (bandwidth.used / bandwidth.limit) * 100;
+  }, [bandwidth]);
+
+  useEffect(() => {
+    dispatch(getStorageStatus.request());
+    dispatch(getBandwidthStatus.request());
+  }, [dispatch]);
 
   const handleLogout = useCallback(() => {
     dispatch(destroySession());
@@ -57,7 +77,7 @@ function SideBar() {
             <LinearProgress
               sx={{ height: "0.5rem", borderRadius: "0.5rem" }}
               variant={"determinate"}
-              value={10}
+              value={storageUsedPercent}
             />
             <Typography
               variant="overline"
@@ -70,7 +90,10 @@ function SideBar() {
                 color: "primary.main",
               }}
             >
-              0B / {t("unlimited")}
+              {formatSizeInKB(storage.used)} KB /{" "}
+              {!storage.limit
+                ? t("unlimited")
+                : `${formatSizeInKB(storage.limit)} KB`}
             </Typography>
           </Box>
           <Box>
@@ -90,7 +113,7 @@ function SideBar() {
             <LinearProgress
               sx={{ height: "0.5rem", borderRadius: "0.5rem" }}
               variant={"determinate"}
-              value={10}
+              value={bandwidthUsedPercent}
             />
             <Typography
               variant="overline"
@@ -103,7 +126,10 @@ function SideBar() {
                 color: "primary.main",
               }}
             >
-              0B / {t("unlimited")}
+              {formatSizeInKB(bandwidth.used)} KB /{" "}
+              {!bandwidth.limit
+                ? t("unlimited")
+                : `${formatSizeInKB(bandwidth.limit)} KB`}
             </Typography>
           </Box>
         </Box>

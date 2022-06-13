@@ -62,17 +62,15 @@ export class ArcanaNetworkSDK {
   };
 
   initializeStorage = () => {
-    if (!this.storage) {
-      this.initializeAuth();
-      const userInfo = this.auth.getUserInfo();
-      this.storage = new StorageProvider({
-        appId: Number(CONFIG.APP_ID),
-        privateKey: userInfo.privateKey,
-        email: userInfo.userInfo.email || "",
-        gateway: "",
-        debug: "",
-      });
-    }
+    this.initializeAuth();
+    const userInfo = this.auth.getUserInfo();
+    this.storage = new StorageProvider({
+      appId: Number(CONFIG.APP_ID),
+      privateKey: userInfo.privateKey,
+      email: userInfo.userInfo.email || "",
+      gateway: "",
+      debug: "",
+    });
   };
 
   redirectPage = () => {

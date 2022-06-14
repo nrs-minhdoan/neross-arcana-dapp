@@ -14,6 +14,7 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 import useI18nContext from "../../../hooks/useI18nContext";
 import { uploadFile } from "../../../store/file/file.action";
+import { calculatePercent } from "../../../utils/common";
 
 function Upload() {
   const dispatch = useDispatch();
@@ -28,10 +29,7 @@ function Upload() {
 
   const handleProgress = useCallback(
     (bytesUploaded: number, bytesTotal: number) => {
-      const temp = (bytesUploaded / bytesTotal) * 100;
-      if (temp < 100) {
-        setProgress(temp);
-      }
+      setProgress(calculatePercent(bytesUploaded, bytesTotal));
     },
     []
   );

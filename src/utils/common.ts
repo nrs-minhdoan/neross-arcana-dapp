@@ -12,8 +12,45 @@ export function formatShortId(
   return `${start}...${end}`;
 }
 
-export function formatSizeInKB(sizeInByte: number) {
-  return Number(new BigNumber(sizeInByte).dividedBy(1024).toFixed(2));
+export function formatSizeFileFromByte(size: number) {
+  let unit = "B";
+  let value = new BigNumber(size);
+  if (value.isGreaterThanOrEqualTo(1024)) {
+    unit = "KB";
+    value = value.dividedBy(1024);
+  }
+  if (value.isGreaterThanOrEqualTo(1024)) {
+    unit = "MB";
+    value = value.dividedBy(1024);
+  }
+  if (value.isGreaterThanOrEqualTo(1024)) {
+    unit = "GB";
+    value = value.dividedBy(1024);
+  }
+  if (value.isGreaterThanOrEqualTo(1024)) {
+    unit = "TB";
+    value = value.dividedBy(1024);
+  }
+  return value.toFormat(2, {
+    decimalSeparator: ".",
+    groupSeparator: ",",
+    groupSize: 3,
+    suffix: ` ${unit}`,
+  });
+}
+
+export function calculatePercent(value: number, limit?: number) {
+  if (!limit) {
+    return 0;
+  } else if (value > limit) {
+    return 100;
+  } else {
+    const result = new BigNumber(value)
+      .dividedBy(limit)
+      .multipliedBy(100)
+      .toFixed(2);
+    return Number(result);
+  }
 }
 
 export function validateEmail(email: string) {

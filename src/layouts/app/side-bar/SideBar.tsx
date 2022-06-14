@@ -23,7 +23,10 @@ import {
 import useI18nContext from "../../../hooks/useI18nContext";
 import { destroySession } from "../../../store/auth/auth.action";
 
-import { formatSizeInKB } from "../../../utils/common";
+import {
+  calculatePercent,
+  formatSizeFileFromByte,
+} from "../../../utils/common";
 
 import useStyles from "./sideBar.style";
 
@@ -37,11 +40,11 @@ function SideBar() {
   const { enqueueSnackbar } = useSnackbar();
 
   const storageUsedPercent = useMemo(() => {
-    return !storage.limit ? 0 : (storage.used / storage.limit) * 100;
+    return calculatePercent(storage.used, storage.limit);
   }, [storage]);
 
   const bandwidthUsedPercent = useMemo(() => {
-    return !bandwidth.limit ? 0 : (bandwidth.used / bandwidth.limit) * 100;
+    return calculatePercent(bandwidth.used, bandwidth.limit);
   }, [bandwidth]);
 
   useEffect(() => {
@@ -90,10 +93,10 @@ function SideBar() {
                 color: "primary.main",
               }}
             >
-              {formatSizeInKB(storage.used)} KB /{" "}
+              {formatSizeFileFromByte(storage.used)} /{" "}
               {!storage.limit
                 ? t("unlimited")
-                : `${formatSizeInKB(storage.limit)} KB`}
+                : formatSizeFileFromByte(storage.limit)}
             </Typography>
           </Box>
           <Box>
@@ -126,10 +129,10 @@ function SideBar() {
                 color: "primary.main",
               }}
             >
-              {formatSizeInKB(bandwidth.used)} KB /{" "}
+              {formatSizeFileFromByte(bandwidth.used)} /{" "}
               {!bandwidth.limit
                 ? t("unlimited")
-                : `${formatSizeInKB(bandwidth.limit)} KB`}
+                : formatSizeFileFromByte(bandwidth.limit)}
             </Typography>
           </Box>
         </Box>

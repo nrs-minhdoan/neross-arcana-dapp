@@ -24,7 +24,7 @@ import Delete from "../../components/file/delete/Delete";
 import Download from "../../components/file/download/Download";
 import useI18nContext from "../../hooks/useI18nContext";
 
-import { formatShortId, formatSizeInKB } from "../../utils/common";
+import { formatShortId, formatSizeFileFromByte } from "../../utils/common";
 
 import useStyles from "./myFiles.style";
 
@@ -104,7 +104,7 @@ function MyFiles() {
       case "size":
         return (
           <Typography variant="body2" component="p" sx={{ textAlign: "right" }}>
-            {formatSizeInKB(value as number)} KB
+            {formatSizeFileFromByte(value as number)}
           </Typography>
         );
 

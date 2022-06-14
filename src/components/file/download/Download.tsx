@@ -12,6 +12,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 
 import useI18nContext from "../../../hooks/useI18nContext";
 import { downloadFile } from "../../../store/file/file.action";
+import { calculatePercent } from "../../../utils/common";
 
 interface IProps {
   id: string;
@@ -26,11 +27,8 @@ function Download({ id }: IProps) {
   const [progress, setProgress] = useState<number>(0);
 
   const handleProgress = useCallback(
-    async (bytesUploaded: number, bytesTotal: number) => {
-      const temp = (bytesUploaded / bytesTotal) * 100;
-      if (temp < 100) {
-        setProgress(temp);
-      }
+    async (bytesDownloaded: number, bytesTotal: number) => {
+      setProgress(calculatePercent(bytesDownloaded, bytesTotal));
     },
     []
   );

@@ -10,8 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import LinearProgress from "@mui/material/LinearProgress";
 import DownloadIcon from "@mui/icons-material/Download";
 
-import useI18nContext from "../../../hooks/useI18nContext";
 import { downloadFile } from "../../../store/file/file.action";
+import useI18nContext from "../../../hooks/useI18nContext";
+
 import { calculatePercent } from "../../../utils/common";
 
 interface IProps {

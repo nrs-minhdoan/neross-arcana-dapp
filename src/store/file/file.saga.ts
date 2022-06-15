@@ -10,6 +10,8 @@ import {
   uploadFile,
   downloadFile,
   shareFile,
+  getSharedAddresses,
+  revokeFile,
   deleteFile,
 } from "./file.action";
 
@@ -91,6 +93,38 @@ function* handleShareFile({ payload }: ReturnType<typeof shareFile.request>) {
   }
 }
 
+function* handleGetSharedAddresses({
+  payload,
+}: ReturnType<typeof getSharedAddresses.request>) {
+  try {
+    const response: Awaited<
+      ReturnType<typeof arcanaNetworkSDK.getSharedAddresses>
+    > = yield call(arcanaNetworkSDK.getSharedAddresses, payload);
+    yield put(getSharedAddresses.success(response));
+  } catch (e: any) {
+    console.error(e);
+    yield put(getSharedAddresses.failure());
+  }
+}
+
+function* handleRevokeFile({ payload }: ReturnType<typeof revokeFile.request>) {
+  try {
+    yield call(arcanaNetworkSDK.revokeFile, {
+      id: payload.id,
+      address: payload.address,
+    });
+    yield put(revokeFile.success());
+    yield call(handleGetSharedAddresses, { payload: payload.id } as ReturnType<
+      typeof getSharedAddresses.request
+    >);
+    payload.callbacks.onSuccess();
+  } catch (e: any) {
+    console.error(e);
+    yield put(revokeFile.failure());
+    payload.callbacks.onError();
+  }
+}
+
 function* handleDeleteFile({ payload }: ReturnType<typeof deleteFile.request>) {
   try {
     yield call(arcanaNetworkSDK.deleteFile, payload.id);
@@ -112,5 +146,7 @@ export default function* fileSaga() {
   yield takeLatest(uploadFile.request, handleUploadFile);
   yield takeLatest(downloadFile.request, handleDownloadFile);
   yield takeLatest(shareFile.request, handleShareFile);
+  yield takeLatest(getSharedAddresses.request, handleGetSharedAddresses);
+  yield takeLatest(revokeFile.request, handleRevokeFile);
   yield takeLatest(deleteFile.request, handleDeleteFile);
 }

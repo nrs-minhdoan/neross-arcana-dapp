@@ -52,6 +52,7 @@ export class ArcanaNetworkSDK {
   };
 
   initializeAuth = () => {
+    // TODO: Maybe must be logout & re-login. Waiting for Arcana Network confirm.
     if (!this.auth) {
       this.auth = new AuthProvider({
         appID: CONFIG.APP_ID,
@@ -210,6 +211,12 @@ export class ArcanaNetworkSDK {
     this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.share([payload.id], [payload.publicKey], [payload.validity]);
+  };
+
+  getSharedAddresses = async (id: string) => {
+    this.initializeStorage();
+    const access = await (this.storage as StorageProvider).getAccess();
+    return access.getSharedUsers(id);
   };
 
   revokeFile = async (payload: { id: string; address: string }) => {

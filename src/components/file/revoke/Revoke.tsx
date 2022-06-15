@@ -10,16 +10,17 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import BackspaceIcon from "@mui/icons-material/Backspace";
 
-import { deleteFile } from "../../../store/file/file.action";
+import { revokeFile } from "../../../store/file/file.action";
 import useI18nContext from "../../../hooks/useI18nContext";
 
 interface IProps {
   id: string;
+  address: string;
 }
 
-function Delete({ id }: IProps) {
+function Revoke({ id, address }: IProps) {
   const dispatch = useDispatch();
   const { t } = useI18nContext();
   const { enqueueSnackbar } = useSnackbar();
@@ -32,14 +33,14 @@ function Delete({ id }: IProps) {
   }, [open]);
 
   const handleSuccess = useCallback(() => {
-    enqueueSnackbar(t("deleteSuccessfully"), {
+    enqueueSnackbar(t("revokeSuccessfully"), {
       variant: "success",
     });
   }, [enqueueSnackbar, t]);
 
   const handleError = useCallback(() => {
     setLoading(false);
-    enqueueSnackbar(t("deleteFailed"), {
+    enqueueSnackbar(t("revokeFailed"), {
       variant: "error",
     });
   }, [enqueueSnackbar, t]);
@@ -47,8 +48,9 @@ function Delete({ id }: IProps) {
   const handleDelete = useCallback(() => {
     setLoading(true);
     dispatch(
-      deleteFile.request({
+      revokeFile.request({
         id,
+        address,
         callbacks: {
           onSuccess: handleSuccess,
           onError: handleError,
@@ -56,17 +58,17 @@ function Delete({ id }: IProps) {
       })
     );
     toggleDialog();
-  }, [dispatch, id, handleSuccess, handleError, toggleDialog]);
+  }, [dispatch, id, address, handleSuccess, handleError, toggleDialog]);
 
   return (
     <>
       <Tooltip
-        title={(loading ? t("deleting") : t("delete")) as string}
+        title={(loading ? t("revoking") : t("revoke")) as string}
         placement="top"
       >
         <span>
           <IconButton type="button" disabled={loading} onClick={toggleDialog}>
-            <DeleteForeverIcon />
+            <BackspaceIcon />
           </IconButton>
         </span>
       </Tooltip>
@@ -81,9 +83,9 @@ function Delete({ id }: IProps) {
         open={open}
         onClose={toggleDialog}
       >
-        <DialogTitle>{t("delete")}</DialogTitle>
+        <DialogTitle>{t("revoke")}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{t("deleteDescription")}</DialogContentText>
+          <DialogContentText>{t("revokeDescription")}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button type="button" onClick={toggleDialog}>
@@ -104,4 +106,4 @@ function Delete({ id }: IProps) {
   );
 }
 
-export default Delete;
+export default Revoke;

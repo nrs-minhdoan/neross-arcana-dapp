@@ -12,8 +12,9 @@ import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 
-import useI18nContext from "../../../hooks/useI18nContext";
 import { uploadFile } from "../../../store/file/file.action";
+import useI18nContext from "../../../hooks/useI18nContext";
+
 import { calculatePercent } from "../../../utils/common";
 
 function Upload() {

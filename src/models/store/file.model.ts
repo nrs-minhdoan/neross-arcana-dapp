@@ -11,5 +11,7 @@ export class MyFile {
 export interface IFileStoreState {
   myFiles: Array<MyFile>;
   sharedWithMeFiles: Array<MyFile>;
+  sharedAddresses: Array<string>;
+  sharedAddressLoading: boolean;
   loading: boolean;
 }

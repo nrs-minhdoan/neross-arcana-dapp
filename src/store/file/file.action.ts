@@ -68,6 +68,29 @@ export const shareFile = createAsyncAction(
   void
 >();
 
+export const getSharedAddresses = createAsyncAction(
+  "file/GET_SHARED_ADDRESSES",
+  "file/GET_SHARED_ADDRESSES_SUCCEEDED",
+  "file/GET_SHARED_ADDRESSES_FAILED"
+)<string, Array<string>, void>();
+
+export const revokeFile = createAsyncAction(
+  "file/REVOKE_FILE",
+  "file/REVOKE_FILE_SUCCEEDED",
+  "file/REVOKE_FILE_FAILED"
+)<
+  {
+    id: string;
+    address: string;
+    callbacks: {
+      onSuccess: () => void;
+      onError: () => void;
+    };
+  },
+  void,
+  void
+>();
+
 export const deleteFile = createAsyncAction(
   "file/DELETE_FILE",
   "file/DELETE_FILE_SUCCEEDED",

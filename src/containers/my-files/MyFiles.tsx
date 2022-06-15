@@ -19,7 +19,7 @@ import { MyFile } from "../../models/store/file.model";
 import withAuth from "../../hocs/withAuth";
 import { getMyFiles } from "../../store/file/file.action";
 import Share from "../../components/file/share/Share";
-import SharedUserAddresses from "../../components/file/shared-user-addresses/SharedUserAddresses";
+import SharedAddresses from "../../components/file/shared-addresses/SharedAddresses";
 import Delete from "../../components/file/delete/Delete";
 import Download from "../../components/file/download/Download";
 import useI18nContext from "../../hooks/useI18nContext";
@@ -119,7 +119,7 @@ function MyFiles() {
           >
             <Download id={value as string} />
             <Share id={value as string} />
-            <SharedUserAddresses id={value as string} />
+            <SharedAddresses id={value as string} />
             <Delete id={value as string} />
           </Box>
         );

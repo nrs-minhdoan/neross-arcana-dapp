@@ -8,12 +8,16 @@ import {
   uploadFile,
   downloadFile,
   shareFile,
+  getSharedAddresses,
+  revokeFile,
   deleteFile,
 } from "./file.action";
 
 const initialState: IFileStoreState = {
   myFiles: [],
   sharedWithMeFiles: [],
+  sharedAddresses: [],
+  sharedAddressLoading: false,
   loading: false,
 };
 
@@ -61,6 +65,24 @@ const fileReducer = createReducer<IFileStoreState>(initialState)
     return state;
   })
   .handleAction(shareFile.failure, (state) => {
+    return state;
+  })
+  .handleAction(getSharedAddresses.request, (state) => {
+    return { ...state, sharedAddresses: [], sharedAddressLoading: true };
+  })
+  .handleAction(getSharedAddresses.success, (state, { payload }) => {
+    return { ...state, sharedAddresses: payload, sharedAddressLoading: false };
+  })
+  .handleAction(getSharedAddresses.failure, (state) => {
+    return { ...state, sharedAddressLoading: false };
+  })
+  .handleAction(revokeFile.request, (state) => {
+    return state;
+  })
+  .handleAction(revokeFile.success, (state) => {
+    return state;
+  })
+  .handleAction(revokeFile.failure, (state) => {
     return state;
   })
   .handleAction(deleteFile.request, (state) => {

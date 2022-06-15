@@ -90,7 +90,10 @@ function Share({ id }: IProps) {
 
   return (
     <>
-      <Tooltip title={t("share") as string} placement="top">
+      <Tooltip
+        title={(loading ? t("sharing") : t("share")) as string}
+        placement="top"
+      >
         <IconButton type="button" onClick={toggleDialog}>
           <ShareIcon />
         </IconButton>

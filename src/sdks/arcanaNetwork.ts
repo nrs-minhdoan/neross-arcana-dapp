@@ -42,36 +42,18 @@ export class ArcanaNetworkSDK {
     return this.auth.isLoggedIn();
   }
 
-  initializeKeystore = () => {
-    if (!this.keystore) {
-      this.keystore = new KeyReconstructor({
-        appID: CONFIG.APP_ID,
-        network: "testnet",
-      });
-    }
-  };
-
-  initializeAuth = () => {
-    // TODO: Maybe must be logout & re-login. Waiting for Arcana Network confirm.
-    if (!this.auth) {
-      this.auth = new AuthProvider({
-        appID: CONFIG.APP_ID,
-        network: "testnet",
-        redirectUri: `${CONFIG.APP_URL}${AUTH_ROUTES.AUTH_REDIRECT}`,
-      });
-    }
-  };
-
-  initializeStorage = () => {
-    this.initializeAuth();
+  initializeStorage = async () => {
     const userInfo = this.auth.getUserInfo();
-    this.storage = new StorageProvider({
-      appId: Number(CONFIG.APP_ID),
-      privateKey: userInfo.privateKey,
-      email: userInfo.userInfo.email || "",
-      gateway: "",
-      debug: "",
-    });
+    if (!this.storage) {
+      this.storage = new StorageProvider({
+        appId: Number(CONFIG.APP_ID),
+        privateKey: userInfo.privateKey,
+        email: userInfo.userInfo.email || "",
+        gateway: "",
+        debug: "",
+      });
+      await this.storage.login();
+    }
   };
 
   redirectPage = () => {
@@ -79,12 +61,10 @@ export class ArcanaNetworkSDK {
   };
 
   loginWithGoogle = () => {
-    this.initializeAuth();
     return this.auth.loginWithSocial(LoginType.google);
   };
 
   getUserInfo = () => {
-    this.initializeAuth();
     const userInfo = this.auth.getUserInfo();
     return userInfo;
   };
@@ -93,7 +73,6 @@ export class ArcanaNetworkSDK {
     verifier: LoginType;
     username: string;
   }) => {
-    this.initializeAuth();
     const { X, Y } = await this.auth.getPublicKey({
       verifier: payload.verifier,
       id: payload.username,
@@ -105,7 +84,6 @@ export class ArcanaNetworkSDK {
     verifier: LoginType;
     username: string;
   }) => {
-    this.initializeKeystore();
     const { X, Y } = await this.keystore.getPublicKey({
       verifier: payload.verifier,
       id: payload.username,
@@ -118,7 +96,6 @@ export class ArcanaNetworkSDK {
     username: string;
     token: string;
   }) => {
-    this.initializeKeystore();
     return this.keystore.getPrivateKey({
       verifier: payload.verifier,
       id: payload.username,
@@ -139,7 +116,7 @@ export class ArcanaNetworkSDK {
   };
 
   getUploadLimit = async () => {
-    this.initializeStorage();
+    await this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.getUploadLimit();
   };
@@ -152,7 +129,7 @@ export class ArcanaNetworkSDK {
       onError?: () => void;
     }
   ) => {
-    this.initializeStorage();
+    await this.initializeStorage();
     const uploader = await (this.storage as StorageProvider).getUploader();
     if (callbacks?.onProgress) {
       uploader.onProgress = callbacks.onProgress;
@@ -167,7 +144,7 @@ export class ArcanaNetworkSDK {
   };
 
   getDownloadLimit = async () => {
-    this.initializeStorage();
+    await this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.getDownloadLimit();
   };
@@ -182,7 +159,7 @@ export class ArcanaNetworkSDK {
       onSuccess?: () => Promise<void>;
     }
   ) => {
-    this.initializeStorage();
+    await this.initializeStorage();
     const downloader = await (this.storage as StorageProvider).getDownloader();
     if (callbacks?.onProgress) {
       downloader.onProgress = callbacks.onProgress;
@@ -194,12 +171,12 @@ export class ArcanaNetworkSDK {
   };
 
   getUploadedFilesByMe = async () => {
-    this.initializeStorage();
+    await this.initializeStorage();
     return (this.storage as StorageProvider).myFiles();
   };
 
   getSharedFilesWithMe = async () => {
-    this.initializeStorage();
+    await this.initializeStorage();
     return (this.storage as StorageProvider).sharedFiles();
   };
 
@@ -208,30 +185,31 @@ export class ArcanaNetworkSDK {
     publicKey: string;
     validity: number;
   }) => {
-    this.initializeStorage();
+    await this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.share([payload.id], [payload.publicKey], [payload.validity]);
   };
 
   getSharedAddresses = async (id: string) => {
-    this.initializeStorage();
+    await this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.getSharedUsers(id);
   };
 
   revokeFile = async (payload: { id: string; address: string }) => {
-    this.initializeStorage();
+    await this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.revoke(payload.id, payload.address);
   };
 
   deleteFile = async (id: string) => {
-    this.initializeStorage();
+    await this.initializeStorage();
     const access = await (this.storage as StorageProvider).getAccess();
     return access.deleteFile(id);
   };
 
   logout = () => {
+    this.storage = undefined;
     return this.auth.logout();
   };
 }

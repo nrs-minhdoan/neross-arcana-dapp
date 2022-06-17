@@ -10,6 +10,8 @@ import I18nProvider from "./contexts/i18n.context";
 import ErrorBoundary from "./containers/error-boundary/ErrorBoundary";
 import SnackbarWrapper from "./components/common/snackbar-wrapper/SnackbarWrapper";
 
+import "./sdks/arcanaNetwork";
+
 import "./App.css";
 
 function App() {

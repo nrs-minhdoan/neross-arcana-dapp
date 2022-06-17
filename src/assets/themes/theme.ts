@@ -22,6 +22,7 @@ const getDesignTokens: (mode: PaletteMode) => ThemeOptions = (mode) => ({
           text: {
             primary: "rgba(0, 0, 0, 0.54)",
             secondary: "rgba(0, 0, 0, 0.54)",
+            neutral: "#ffffff",
           },
           background: {
             default: "#ffffff",
@@ -46,6 +47,7 @@ const getDesignTokens: (mode: PaletteMode) => ThemeOptions = (mode) => ({
           text: {
             primary: "#ffffff",
             secondary: "#c2c4c7",
+            neutral: "#ffffff",
           },
           background: {
             default: "#063975",

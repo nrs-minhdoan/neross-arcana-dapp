@@ -36,19 +36,39 @@ function SharedWithMe() {
       field: string;
       label: string;
       align: "left" | "right" | "center";
+      width: string;
       minWidth: number;
     }>
   >(() => {
     return [
-      { field: "id", label: t("fileID"), align: "left", minWidth: 160 },
+      {
+        field: "id",
+        label: t("fileID"),
+        align: "left",
+        width: "35%",
+        minWidth: 160,
+      },
       {
         field: "lastModified",
         label: t("lastModified"),
         align: "left",
+        width: "25%",
         minWidth: 160,
       },
-      { field: "size", label: t("size"), align: "right", minWidth: 80 },
-      { field: "actions", label: t("actions"), align: "right", minWidth: 240 },
+      {
+        field: "size",
+        label: t("size"),
+        align: "right",
+        width: "15%",
+        minWidth: 80,
+      },
+      {
+        field: "actions",
+        label: t("actions"),
+        align: "right",
+        width: "auto",
+        minWidth: 240,
+      },
     ];
   }, [t]);
 
@@ -112,6 +132,8 @@ function SharedWithMe() {
                   align={column.align}
                   sx={{
                     backgroundColor: "primary.main",
+                    color: "text.neutral",
+                    width: column.width,
                     minWidth: column.minWidth,
                   }}
                 >

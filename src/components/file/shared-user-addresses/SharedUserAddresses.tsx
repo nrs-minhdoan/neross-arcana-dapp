@@ -30,12 +30,25 @@ function SharedUserAddresses({ id }: IProps) {
       field: string;
       label: string;
       align: "left" | "right" | "center";
+      width: string;
       minWidth: number;
     }>
   >(() => {
     return [
-      { field: "wallet", label: t("wallet"), align: "left", minWidth: 160 },
-      { field: "actions", label: t("actions"), align: "right", minWidth: 240 },
+      {
+        field: "wallet",
+        label: t("wallet"),
+        align: "left",
+        width: "75%",
+        minWidth: 160,
+      },
+      {
+        field: "actions",
+        label: t("actions"),
+        align: "right",
+        width: "auto",
+        minWidth: 240,
+      },
     ];
   }, [t]);
 
@@ -83,6 +96,8 @@ function SharedUserAddresses({ id }: IProps) {
                       align={column.align}
                       sx={{
                         backgroundColor: "primary.main",
+                        color: "text.neutral",
+                        width: "",
                         minWidth: column.minWidth,
                       }}
                     >

@@ -66,7 +66,7 @@ function Information() {
             sx={{
               width: "100%",
               backgroundColor: "primary.main",
-              color: "text.primary",
+              color: "text.neutral",
               minHeight: "2.25rem",
               padding: "0.25rem 0.5rem",
               borderRadius: "0.25rem",
@@ -101,7 +101,7 @@ function Information() {
             width: "100%",
             height: "2.25rem",
             backgroundColor: "primary.main",
-            color: "text.primary",
+            color: "text.neutral",
             padding: "0 0.5rem",
             borderRadius: "0.25rem",
             textTransform: "none",

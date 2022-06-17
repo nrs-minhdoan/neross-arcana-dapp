@@ -132,7 +132,13 @@ function Share({ id }: IProps) {
             disabled={loading}
             variant="outlined"
             color="primary"
-            sx={{ backgroundColor: "primary.main", color: "text.primary" }}
+            sx={{
+              backgroundColor: "primary.main",
+              color: "text.neutral",
+              "&:hover": {
+                color: "primary.main",
+              },
+            }}
             onClick={handleShareFile}
           >
             {t("confirm")}

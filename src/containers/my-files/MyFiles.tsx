@@ -138,6 +138,7 @@ function MyFiles() {
                   align={column.align}
                   sx={{
                     backgroundColor: "primary.main",
+                    color: "text.neutral",
                     width: column.width,
                     minWidth: column.minWidth,
                   }}

@@ -61,7 +61,6 @@ function* handleInitSessionWithGoogle({
 }
 
 function* handleDestroySession() {
-  console.log("logged out: ", "");
   yield call(arcanaNetworkSDK.logout);
 }
 

@@ -93,7 +93,13 @@ function Delete({ id }: IProps) {
             type="button"
             variant="outlined"
             color="error"
-            sx={{ backgroundColor: "error.main", color: "text.primary" }}
+            sx={{
+              backgroundColor: "error.main",
+              color: "text.neutral",
+              "&:hover": {
+                color: "error.main",
+              },
+            }}
             onClick={handleDelete}
           >
             {t("confirm")}

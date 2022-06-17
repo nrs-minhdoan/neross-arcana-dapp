@@ -55,7 +55,7 @@ function LanguageSelector() {
             variant={language === value ? "contained" : "outlined"}
             sx={{
               textTransform: "none",
-              color: language === value ? "text.primary" : "primary.main",
+              color: language === value ? "text.neutral" : "primary.main",
             }}
             onClick={() => {
               changeLanguage(value);

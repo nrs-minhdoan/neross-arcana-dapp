@@ -81,7 +81,7 @@ function ThemeSelector() {
               flex: 1,
               whiteSpace: "nowrap",
               textTransform: "none",
-              color: mode === value ? "text.primary" : "primary.main",
+              color: mode === value ? "text.neutral" : "primary.main",
             }}
             onClick={() => {
               changeMode(value);
